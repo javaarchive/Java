@@ -129,6 +129,12 @@ public abstract class usacotools {
 		}
 		return stuff;
 	}
+	public static Set<String> sclones(Set<String> k) {
+    	return (new HashSet<String>(k));
+    }
+	public static Set<Integer> sclone(Set<Integer> k) {
+    	return (new HashSet<Integer>(k));
+    }
 	public static void main(String[] args) throws Exception{
 		System.out.println("Running demo");
 		Scanner sc=getsysscan();
