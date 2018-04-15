@@ -122,6 +122,14 @@ public abstract class usacotools {
 		return stuff;
 		
 	}
+	public static long[] toArrayl(ArrayList<Long> arr) {
+		long[] stuff=new long[arr.size()];
+		for(int i=0;i<arr.size();i++) {
+			stuff[i]=arr.get(i);
+		}
+		return stuff;
+		
+	}
 	public static String[] toArrays(ArrayList<String> arr) {
 		String[] stuff=new String[arr.size()];
 		for(int i=0;i<arr.size();i++) {
@@ -133,7 +141,11 @@ public abstract class usacotools {
     	return (new HashSet<String>(k));
     }
 	public static Set<Integer> sclone(Set<Integer> k) {
-    	return (new HashSet<Integer>(k));
+    
+		return (new HashSet<Integer>(k));
+    }
+	public static Set<Long> sclonel(Set<Long> k) {
+    	return (new HashSet<Long>(k));
     }
 	public static void main(String[] args) throws Exception{
 		System.out.println("Running demo");
