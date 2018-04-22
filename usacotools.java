@@ -3,6 +3,16 @@ import java.io.*;
 public abstract class usacotools {
 	public static int ERROR=1;
 	public static String error="Error";
+	public static int[][] morph(int[][] map,int a,int b){
+		for(int i=0;i<map.length;i++) {
+			for(int j=0;j<map[i].length;j++) {
+				if(map[i][j]==a) {
+					map[i][j]=b;
+				}
+			}
+		}
+		return map;
+	}
 	public static boolean isrect(int[][] map,int x,int y) {
 		int cachedsize=-1;
 		int cachey=-1;
