@@ -172,10 +172,32 @@ public abstract class usacotools {
 	public static Set<Long> sclonel(Set<Long> k) {
     	return (new HashSet<Long>(k));
     }
+	public static boolean smartequals(int[] a,int[] b) {
+    	if(a.length!=b.length) {
+    		return false;
+    	}
+    	for(int i=0;i<a.length;i++) {
+    		if(a[i]!=b[i]) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+    public static boolean smartequals2D(int[][] a,int[][] b) {
+    	if(a.length!=b.length) {
+    		return false;
+    	}
+    	for(int i=0;i<a.length;i++) {
+    		if(smartequals(a[i],b[i])) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
 	public static void main(String[] args) throws Exception{
 		System.out.println("Running demo");
 		Scanner sc=getsysscan();
-		print("Welcome to the demo\nYou have many choices \n 1} Run help \n2} Check for a update \n3}Run demo to see features");
+		print("Welcome to the demo\nYou have many choices \n 1} Run help \n2} Check for a update \n3}Run demo to see features\n By the way the newest features are always at the bottom!!!!!");
 		print(">","");
 		try {
 		  int val=sc.nextInt();
@@ -184,5 +206,6 @@ public abstract class usacotools {
 			
 		}
 	}
+	
 
 }
