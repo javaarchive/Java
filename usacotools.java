@@ -188,7 +188,7 @@ public abstract class usacotools {
     		return false;
     	}
     	for(int i=0;i<a.length;i++) {
-    		if(smartequals(a[i],b[i])) {
+    		if(!(smartequals(a[i],b[i]))) {
     			return false;
     		}
     	}
