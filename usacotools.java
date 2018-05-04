@@ -1,8 +1,33 @@
 import java.util.*;
 import java.io.*;
 public abstract class usacotools {
+	public static int classify(char x,char off,char on) {
+    	/*
+    	 * Method to classify X is off value or on value
+    	 * Returns -1 if neither
+    	 * 
+    	 */
+    	if (x==off){
+    		return 0;
+    	}else if(x==on) {
+    		return 1;
+    	}else {
+    		return -1;
+    	}
+    	
+        }
 	public static int ERROR=1;
 	public static String error="Error";
+	public static int[][] morph(int[][] map,int a,int b){
+		for(int i=0;i<map.length;i++) {
+			for(int j=0;j<map[i].length;j++) {
+				if(map[i][j]==a) {
+					map[i][j]=b;
+				}
+			}
+		}
+		return map;
+	}
 	public static boolean isrect(int[][] map,int x,int y) {
 		int cachedsize=-1;
 		int cachey=-1;
@@ -122,6 +147,14 @@ public abstract class usacotools {
 		return stuff;
 		
 	}
+	public static long[] toArrayl(ArrayList<Long> arr) {
+		long[] stuff=new long[arr.size()];
+		for(int i=0;i<arr.size();i++) {
+			stuff[i]=arr.get(i);
+		}
+		return stuff;
+		
+	}
 	public static String[] toArrays(ArrayList<String> arr) {
 		String[] stuff=new String[arr.size()];
 		for(int i=0;i<arr.size();i++) {
@@ -129,10 +162,42 @@ public abstract class usacotools {
 		}
 		return stuff;
 	}
+	public static Set<String> sclones(Set<String> k) {
+    	return (new HashSet<String>(k));
+    }
+	public static Set<Integer> sclone(Set<Integer> k) {
+    
+		return (new HashSet<Integer>(k));
+    }
+	public static Set<Long> sclonel(Set<Long> k) {
+    	return (new HashSet<Long>(k));
+    }
+	public static boolean smartequals(int[] a,int[] b) {
+    	if(a.length!=b.length) {
+    		return false;
+    	}
+    	for(int i=0;i<a.length;i++) {
+    		if(a[i]!=b[i]) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+    public static boolean smartequals2D(int[][] a,int[][] b) {
+    	if(a.length!=b.length) {
+    		return false;
+    	}
+    	for(int i=0;i<a.length;i++) {
+    		if(!(smartequals(a[i],b[i]))) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
 	public static void main(String[] args) throws Exception{
 		System.out.println("Running demo");
 		Scanner sc=getsysscan();
-		print("Welcome to the demo\nYou have many choices \n 1} Run help \n2} Check for a update \n3}Run demo to see features");
+		print("Welcome to the demo\nYou have many choices \n 1} Run help \n2} Check for a update \n3}Run demo to see features\n By the way the newest features are always at the bottom!!!!!");
 		print(">","");
 		try {
 		  int val=sc.nextInt();
@@ -141,5 +206,6 @@ public abstract class usacotools {
 			
 		}
 	}
+	
 
 }
