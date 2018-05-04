@@ -1,6 +1,21 @@
 import java.util.*;
 import java.io.*;
 public abstract class usacotools {
+	public static int classify(char x,char off,char on) {
+    	/*
+    	 * Method to classify X is off value or on value
+    	 * Returns -1 if neither
+    	 * 
+    	 */
+    	if (x==off){
+    		return 0;
+    	}else if(x==on) {
+    		return 1;
+    	}else {
+    		return -1;
+    	}
+    	
+        }
 	public static int ERROR=1;
 	public static String error="Error";
 	public static int[][] morph(int[][] map,int a,int b){
