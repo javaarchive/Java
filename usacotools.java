@@ -34,6 +34,38 @@ public abstract class usacotools {
 		}
 		return true;
 	}
+	public static Set<String> sclones(Set<String> k) {
+    	return (new HashSet<String>(k));
+    }
+	public static Set<Integer> sclone(Set<Integer> k) {
+    
+		return (new HashSet<Integer>(k));
+    }
+	public static Set<Long> sclonel(Set<Long> k) {
+    	return (new HashSet<Long>(k));
+    }
+	public static boolean smartequals(int[] a,int[] b) {
+    	if(a.length!=b.length) {
+    		return false;
+    	}
+    	for(int i=0;i<a.length;i++) {
+    		if(a[i]!=b[i]) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+    public static boolean smartequals2D(int[][] a,int[][] b) {
+    	if(a.length!=b.length) {
+    		return false;
+    	}
+    	for(int i=0;i<a.length;i++) {
+    		if(smartequals(a[i],b[i])) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
 	public static void report(Exception e) {
 		console.add(e);
 		ERRORS++;
@@ -232,6 +264,32 @@ public abstract class usacotools {
     	}
     	return n;
     }
+    public static int[][] morph(int[][] map,int a,int b){
+    			for(int i=0;i<map.length;i++) {
+    				for(int j=0;j<map[i].length;j++) {
+    					if(map[i][j]==a) {
+    						map[i][j]=b;
+    					}
+    				}
+    			}
+    			return map;
+    		}
+    public static int classify(char x,char off,char on) {
+    	/*
+    	 * Method to classify X is off value or on value
+    	 * Returns -1 if neither
+    	 * 
+    	 */
+    	if (x==off){
+    		return 0;
+    	}else if(x==on) {
+    		return 1;
+    	}else {
+    		return -1;
+    	}
+    	
+        }
+    
 	public static void main(String[] args) throws Exception{
 		/*
 		 * Short demo of stuff
