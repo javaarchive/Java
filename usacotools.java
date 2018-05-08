@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.io.*;
 public abstract class usacotools {
@@ -184,8 +185,60 @@ public abstract class usacotools {
     }
     public static boolean  ESTACK=true;
     public static boolean  EMSG=true;
-    
+    public static int[] reverse(int[] a) {
+    	int temp;
+    	for(int i = 0; i < a.length / 2; i++)
+    	{
+    	    temp = a[i];
+    	    a[i] = a[a.length - i - 1];
+    	    a[a.length - i - 1] = temp;
+    	}
+    	return a;
+    }
+    public static int[][] reverseh(int[][] a) {
+    	/*
+    	 * Reverse 2D array horizontal
+    	 */
+		int[] temp;
+		for(int i = 0; i < a.length / 2; i++)
+		{
+		    temp = a[i];
+		    a[i] = a[a.length - i - 1];
+		    a[a.length - i - 1] = temp;
+		}
+		return a;
+	}
+    public static int[][] reversev(int[][] a) {
+    	/*
+    	 * Reverse 2D array vertically
+    	 */
+    	int[][] newa=new int[a.length][a[0].length]; 
+    	for(int i=0;i<a.length;i++) {
+    		newa[i]=reverse(a[i]);
+    	}
+    	return newa;
+    }
+    public static int[][] rotate90cw(int[][] map) {
+    	/*
+    	 * Rotate 2D array 
+    	 * 90 degree clockwise 
+    	 */
+    	int N=map.length;
+    	int[][] n=new int[N][N];
+    	for(int i=0;i<N;i++) {
+    		for(int j=0;j<N;j++) {
+    			n[j][N-1-i]=map[i][j];
+    		}
+    	}
+    	return n;
+    }
 	public static void main(String[] args) throws Exception{
+		/*
+		 * Short demo of stuff
+		 * Making an error would also demo error reporting
+		 * 
+		 * 
+		 */
 		System.out.println("Running demo");
 		Scanner sc=getsysscan();
 		print("Welcome to the demo\nYou have many choices \n1} Run help \n2} Check for a update \n3}Run demo to see features");
@@ -204,5 +257,4 @@ public abstract class usacotools {
 			
 		}
 	}
-
 }
