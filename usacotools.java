@@ -321,7 +321,7 @@ public abstract class usacotools {
 		 */
 		System.out.println("Running demo");
 		Scanner sc=getsysscan();
-		print("Welcome to the demo\nYou have many choices \n1} Run help \n2} Check for a update \n3}Run demo to see features");
+		print("Welcome to the demo\nYou have many choices \n1} Run help \n \n2}Run demo to see features");
 		print(">","");
 		int val;
 		try {
