@@ -289,7 +289,29 @@ public abstract class usacotools {
     	}
     	
         }
-    
+        public static long slowfib(long num){
+    	if(num<=1) {
+    		return num;
+    	}
+    	
+    	return slowfib(num-1)+slowfib(num-2);
+    }
+    public static ArrayList<Long> fibmem=new ArrayList<Long>();
+    public static long ffib(long n){
+    	if(n<=1) {
+    		return n;
+    	}
+    	
+    	if(fibmem.size()>n) {
+    		return fibmem.get((int) n-1)+fibmem.get((int) n-2);
+    	}else {
+    		fibmem.add(ffib(n-1)+ffib(n-2));
+    		return fibmem.get((int)  n);
+    	}
+    }
+    public static void setupfib() {
+        fibmem.add((long) 0);fibmem.add((long)1);fibmem.add((long)1);fibmem.add((long)2);
+    }
 	public static void main(String[] args) throws Exception{
 		/*
 		 * Short demo of stuff
