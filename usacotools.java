@@ -227,9 +227,9 @@ public abstract class usacotools {
     	}
     	return a;
     }
-    public static int[][] reverseh(int[][] a) {
+    public static int[][] reversev(int[][] a) {
     	/*
-    	 * Reverse 2D array horizontal
+    	 * Reverse 2D array
     	 */
 		int[] temp;
 		for(int i = 0; i < a.length / 2; i++)
@@ -240,9 +240,9 @@ public abstract class usacotools {
 		}
 		return a;
 	}
-    public static int[][] reversev(int[][] a) {
+    public static int[][] reverseh(int[][] a) {
     	/*
-    	 * Reverse 2D array vertically
+    	 * Reverse 2D array
     	 */
     	int[][] newa=new int[a.length][a[0].length]; 
     	for(int i=0;i<a.length;i++) {
