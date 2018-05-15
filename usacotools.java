@@ -309,8 +309,23 @@ public abstract class usacotools {
     		return fibmem.get((int)  n);
     	}
     }
+    public static void print() {
+    	System.out.println();
+    }
     public static void setupfib() {
         fibmem.add((long) 0);fibmem.add((long)1);fibmem.add((long)1);fibmem.add((long)2);
+    }
+    public static void show2Darr(int[][] a) {
+    	for(int[] b:a) {
+    		for(int c:b) {
+    			print(c+" ","");
+    		}
+    		print();
+    		
+    	}
+    }
+    public static void showarr(int[] a) {
+    	for(int x:a) {print(x+" ");}
     }
 	public static void main(String[] args) throws Exception{
 		/*
@@ -321,9 +336,22 @@ public abstract class usacotools {
 		 */
 		System.out.println("Running demo");
 		Scanner sc=getsysscan();
-		print("Welcome to the demo\nYou have many choices \n1} Run help \n \n2}Run demo to see features");
+		print("Welcome to the demo");
 		print(">","");
 		int val;
+		int[][] testarray= {
+				{1,1,1,1,1,1,1,1},
+				{1,1,1,0,0,1,1,2},
+				{0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0},
+				{1,1,1,1,1,1,1,1},
+				{1,1,1,1,1,1,1,1},
+		};
+		print("Roation of 90 degrees\n Before \n\n\n\n");
+		show2Darr(testarray);
+		print("After \n");
+		show2Darr(rotate90cw(testarray));
 		try {
 		  val=sc.nextInt();
 		}catch(Exception e) {
