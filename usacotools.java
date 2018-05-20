@@ -346,6 +346,26 @@ public abstract class usacotools {
     public static void showarr(int[] a) {
     	for(int x:a) {print(x+" ");}
     }
+	public static int[][] dpcache;
+	public static int ks(int W,int[] wt,int[] val,int n) {
+		int result;
+		if(dpcache[n][W]!=0) {return dpcache[n][W];}
+		if(n==0||W==0) {
+			result=0;
+		}else if(wt[n-1]>W) {
+			result=ks(W,wt,val,n-1);
+			
+			
+			
+		}else {
+			result=Math.max(val[n-1]+ks(W-wt[n-1],wt,val,n-1),ks(W,wt,val,n-1));
+		}
+		dpcache[n][W]=result;
+		return result;
+	}
+	public static void kssetup(int n,int W) {
+		dpcache=new int[n+1][W+1];
+	}
 	public static void main(String[] args) throws Exception{
 		/*
 		 * Short demo of stuff
