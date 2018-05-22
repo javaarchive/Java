@@ -15,6 +15,7 @@ public abstract class usacotools {
 	public static ArrayList<Exception> console=new ArrayList<Exception>();
 	public static String error="Error";
 	public static int debugcode=-1;
+	public static boolean DEBUG=false;
 	public static boolean isrect(int[][] map,int x,int y) {
 		int cachedsize=-1;
 		int cachey=-1;
@@ -135,6 +136,24 @@ public abstract class usacotools {
        
         return -1;
     }
+	public static int[][] copy2D(int[][] a){
+		int[][] b=new int[a.length][];
+		for(int i=0;i<a.length;i++) {
+			b[i]=new int[a[i].length];
+			for(int j=0;j<a[i].length;j++) {
+				b[i][j]=a[i][j];
+			}
+		}
+		return b;
+	}
+	public static int[] copyarr(int[] a) {
+		int[] b=new int[a.length];
+		
+		for(int i=0;i<a.length;i++) {
+			b[i]=a[i];
+		}
+		return b;
+	}
 	public static int ebs(int arr[], int l, int r, int x) {
 		Arrays.sort(arr);
 		return binarySearch(arr, l,  r, x);
@@ -256,7 +275,7 @@ public abstract class usacotools {
     	 * 90 degree clockwise 
     	 */
     	int N=map.length;
-    	int[][] n=new int[N][N];
+    	int[][] n=new int[map[0].length][N];
     	for(int i=0;i<N;i++) {
     		for(int j=0;j<N;j++) {
     			n[j][N-1-i]=map[i][j];
@@ -327,6 +346,26 @@ public abstract class usacotools {
     public static void showarr(int[] a) {
     	for(int x:a) {print(x+" ");}
     }
+	public static int[][] dpcache;
+	public static int ks(int W,int[] wt,int[] val,int n) {
+		int result;
+		if(dpcache[n][W]!=0) {return dpcache[n][W];}
+		if(n==0||W==0) {
+			result=0;
+		}else if(wt[n-1]>W) {
+			result=ks(W,wt,val,n-1);
+			
+			
+			
+		}else {
+			result=Math.max(val[n-1]+ks(W-wt[n-1],wt,val,n-1),ks(W,wt,val,n-1));
+		}
+		dpcache[n][W]=result;
+		return result;
+	}
+	public static void kssetup(int n,int W) {
+		dpcache=new int[n+1][W+1];
+	}
 	public static void main(String[] args) throws Exception{
 		/*
 		 * Short demo of stuff
@@ -339,26 +378,46 @@ public abstract class usacotools {
 		print("Welcome to the demo");
 		print(">","");
 		int val;
+		/*
 		int[][] testarray= {
-				{1,1,1,1,1,1,1,1},
-				{1,1,1,0,0,1,1,2},
-				{0,0,0,0,0,0,0,0},
-				{0,0,0,0,0,0,0,0},
-				{0,0,0,0,0,0,0,0},
-				{1,1,1,1,1,1,1,1},
-				{1,1,1,1,1,1,1,1},
+				{1,1,2,7,7,1,1,1},
+				{1,1,4,0,7,1,2,2},
+				{0,3,6,9,1,0,0,0},
+				{0,3,0,1,0,0,0,0},
+				{0,3,0,0,0,0,0,0},
+				{1,1,5,1,3,1,1,1},
+				{1,1,1,1,3,1,1,1},
 		};
-		print("Roation of 90 degrees\n Before \n\n\n\n");
+		*/
+		int[][] testarray= {
+				{1,2,3,1},
+				{4,5,6,2},
+				{7,8,9,3},
+				{10,69,1,4}
+				
+		};
+		print("Roation of 90 degrees\n Before \n ");
 		show2Darr(testarray);
 		print("After \n");
 		show2Darr(rotate90cw(testarray));
+		print("BEFORE:");
+		int[][] ii= {
+				{1,1,2,3},
+				{1,0,2,1},
+				{1,1,1,1},
+				{1,2,3,4}
+		};
+		show2Darr(ii);
+		print("After H reflect:");
+		show2Darr(reverseh(ii));
+		
 		try {
 		  val=sc.nextInt();
 		}catch(Exception e) {
 			print("Oops that did not go well please rerun and choose a INTEGER");
 			val=-1;
 			report(e);
-			print("How about we test erro reporting");
+			print("How about we test error reporting");
 			console();
 		}
 		if(1==val) {
