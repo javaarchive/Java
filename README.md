@@ -1,3 +1,3 @@
 # Java
-DON'T use download
-USE RELEASES
+Useful library for usaco and other purposes. 
+. Use releases when possible otherwise download usacotools.java. 
