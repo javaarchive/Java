@@ -1,4 +1,8 @@
-
+/*
+ * USACOTOOLS-Official version
+ * This is the official version.
+ * 
+ */
 import java.util.*;
 import java.io.*;
 public abstract class usacotools {
@@ -105,6 +109,7 @@ public abstract class usacotools {
 	    return new String(charArray);
 	}
 	public static BufferedReader mreader(String filen) throws IOException {
+		//Make a reader
 		return new BufferedReader(new FileReader(filen));
 	}
 	public static PrintWriter mwriter(String filen) throws IOException {
