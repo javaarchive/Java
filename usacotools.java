@@ -4,7 +4,9 @@
  * 
  */
 import java.util.*;
+
 import java.io.*;
+import java.security.*;
 public abstract class usacotools {
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_BLACK = "\u001B[30m";
@@ -422,6 +424,26 @@ public abstract class usacotools {
 	public static void UNLOCK() {
 		if(!(_lock)) {lock=false;}
 	}
+	public static String sha256(String input) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] result = md.digest(input.getBytes());
+        StringBuffer s = new StringBuffer();
+        for (int i = 0; i < result.length; i++) {
+            s.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+        }
+         
+        return s.toString();
+    }
+	public static String sha(String input,String type) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance(type);
+        byte[] result = md.digest(input.getBytes());
+        StringBuffer s = new StringBuffer();
+        for (int i = 0; i < result.length; i++) {
+            s.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+        }
+         
+        return s.toString();
+    }
 	
 	public static void main(String[] args) throws Exception{
 		print("the demo has been removed do to lack of support. Instead we display info about the library.");
