@@ -23,6 +23,17 @@ public class compilestandard extends usacotools {
 		while ((st = f.readLine()) != null) {
 		    full=full+st+"\n";
 		  }
-	 	print(full.replace("if(!(lock)) {return null;}", ""));
+		String text=full.replace("if(!(lock)) {return null;}", "");
+		text=text.replace("public abstract class usacotools","public abstract class utools");
+	 	print(text);
+	 	PrintWriter pw=mwriter("utools.java");
+	 	if(args[0].equals("eclipse")) {
+			pw=mwriter("src/utools.java");
+		}else {
+			
+		}
+	 	pw.println(text);
+	 	pw.close();
+	 	
 	}
 }

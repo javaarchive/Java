@@ -422,7 +422,9 @@ public abstract class usacotools {
 	public static void UNLOCK() {
 		if(!(_lock)) {lock=false;}
 	}
+	
 	public static void main(String[] args) throws Exception{
 		print("the demo has been removed do to lack of support. Instead we display info about the library.");
 	}
+	
 }
