@@ -3,10 +3,22 @@
  * This is the official version.
  * 
  */
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.Set;
 import java.util.*;
-
-import java.io.*;
-import java.security.*;
+import java.util.regex.*;
 public abstract class utools {
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_BLACK = "\u001B[30m";
@@ -444,10 +456,32 @@ public abstract class utools {
          
         return s.toString();
     }
+	public static double cos(double a) {return Math.cos(a);}
+	public static double sin(double a) {return Math.sin(a);}
+	public static double abs(double a) {return Math.abs(a);}
+	public static double floor(double a) {return Math.floor(a);}
+	public static double ceil(double a) {return Math.ceil(a);}
 	
 	public static void main(String[] args) throws Exception{
+		System.out.println("Running");
+		$1();
 		print("the demo has been removed do to lack of support. Instead we display info about the library.");
+		$1();
+		System.out.println($r());
 	}
-	
+	public static Queue<Long> speedqueue=new LinkedList<Long>();
+	public static long prevtime=0;
+	public static void $1() {
+		long time=System.currentTimeMillis();
+		if(prevtime==0) {
+			prevtime=time;
+		}else {
+			speedqueue.add((long) abs(time-prevtime));
+			prevtime=0;
+		}
+	}
+	public static long $r() {
+		return speedqueue.poll().longValue();
+	}
 }
 
