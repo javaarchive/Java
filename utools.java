@@ -483,5 +483,12 @@ public abstract class utools {
 	public static long $r() {
 		return speedqueue.poll().longValue();
 	}
+	public static boolean $r$smatch(String a,String b) {
+		return Pattern.matches(a, b);
+	}
+	public static boolean $r$match(String a,String b) throws Exception{
+		//WIP
+		throw new Exception("Not implemented");
+	}
 }
 
