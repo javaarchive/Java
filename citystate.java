@@ -1,59 +1,42 @@
 import java.io.*;
 import java.util.*;
+
 public class citystate {
-	public static double decify(int num) {
-		return 0.01*num;
-	}
-	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
-		BufferedReader f=new BufferedReader(new FileReader("citystate.in"));
+	public static void main(String[] args) throws IOException{
 		PrintWriter pw=new PrintWriter(new BufferedWriter(new FileWriter("citystate.out")));
-		double c1,c2;
+		BufferedReader f=new BufferedReader(new FileReader("2.in"));
+		int answer=0;
 		int N=Integer.parseInt(f.readLine());
-		String[] state=new String[N];//INIT storage for state
-		String[] city=new String[N];//INIT storage for city
-		ArrayList<String> hitstates=new ArrayList<String>();
-		ArrayList<String> hitcities=new ArrayList<String>();
+		List<String> k=new ArrayList<String>();
+		List<String> checkstate=new ArrayList<String>();
 		StringTokenizer st;
 		for(int i=0;i<N;i++) {
 			st=new StringTokenizer(f.readLine());
-			state[i]=st.nextToken();
-			city[i]=st.nextToken();
-			//System.out.println("READ");
+			checkstate.add(st.nextToken());
+			k.add(st.nextToken());
 			
 		}
-		int a,b,c,d,e;
-		e=0;
+		String state,city;
 		for(int i=0;i<N;i++) {
-			a=((int) city[i].charAt(0)) -(int) ' ';
-			b=((int) city[i].charAt(1))-(int) ' ';
-			c1=(((double)a)+(decify(b)));
-			for(int j=i+1;j<N;j++) {
-				if(j==i) {
+			state=checkstate.get(0);
+			city=k.get(0);
+			for(int j=0;j<k.size();j++) {
+				
+				if(i==j) {
 					continue;
 				}
-				c=((int) state[j].charAt(0))-(int) ' ';
-				d=((int) state[j].charAt(1))-(int) ' ';
-				c2=(((double)c)+decify(d));
-				
-				//System.out.println("Debug "+c1+" , "+c2+" "+state[j].charAt(0)+state[j].charAt(1)+" "+city[i].charAt(0)+city[i].charAt(1));
-				if(c2==c1) {
-					
-					//System.out.println("HIT");
-					//System.out.println(city[i]+"  "+state[j]+" "+city[j]+" "+state[i]);
-					if(city[j].equals(state[i].substring(0, 2))){
-						e++;
-					}
+				if(k.get(j).equals(state.substring(0,2))&&!(checkstate.get(j).equals(state))) {
+					answer++; 
+					System.out.println(k.get(j)+" is equal to "+state);
 				}
 			}
+			k.remove(0);
+			checkstate.remove(0);
+			//System.out.println(city+"  "+state);
+			
 		}
-		//String a1,a2;
-		
-		
-		pw.println(e);
+		pw.println(answer);
 		pw.close();
 		f.close();
 	}
-	
-
 }
