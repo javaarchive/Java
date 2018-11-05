@@ -40,6 +40,13 @@ public class debuggableapp {
 	}
 	public static void show(Var x) {
 		debug.println(x.getClass());
+<<<<<<< HEAD
+=======
+		if(x.getClass().getName().contains((CharSequence) "List")) {
+			System.out.println("WARNING this is a list");
+			debug.println("WARNING this is a list");
+		}
+>>>>>>> master
 		System.out.println(x.get());
 	}
 	public static void add(Var x,String friendlyname) {
@@ -47,6 +54,12 @@ public class debuggableapp {
 	}
 	public static void set(Var x,String friendlyname) {
 		db.put(friendlyname, x);
+<<<<<<< HEAD
+=======
+		
+		
+		
+>>>>>>> master
 	}
 	public static void main(String[] args) {
 		setup();
@@ -60,4 +73,8 @@ public class debuggableapp {
 		session();
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master

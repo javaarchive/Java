@@ -1,6 +1,24 @@
-
+/*
+ * USACOTOOLS-Official version
+ * This is the official version.
+ * 
+ */
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.Set;
 import java.util.*;
-import java.io.*;
+import java.util.regex.*;
 public abstract class usacotools {
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_BLACK = "\u001B[30m";
@@ -16,6 +34,11 @@ public abstract class usacotools {
 	public static String error="Error";
 	public static int debugcode=-1;
 	public static boolean DEBUG=false;
+	public static boolean lock;
+	public static boolean IO=true;
+	public static void blockio() {
+		IO=false;
+	}
 	public static boolean isrect(int[][] map,int x,int y) {
 		int cachedsize=-1;
 		int cachey=-1;
@@ -105,6 +128,7 @@ public abstract class usacotools {
 	    return new String(charArray);
 	}
 	public static BufferedReader mreader(String filen) throws IOException {
+		//Make a reader
 		return new BufferedReader(new FileReader(filen));
 	}
 	public static PrintWriter mwriter(String filen) throws IOException {
@@ -137,6 +161,7 @@ public abstract class usacotools {
         return -1;
     }
 	public static int[][] copy2D(int[][] a){
+		if(!(lock)) {return null;}
 		int[][] b=new int[a.length][];
 		for(int i=0;i<a.length;i++) {
 			b[i]=new int[a[i].length];
@@ -147,6 +172,7 @@ public abstract class usacotools {
 		return b;
 	}
 	public static int[] copyarr(int[] a) {
+		if(!(lock)) {return null;}
 		int[] b=new int[a.length];
 		
 		for(int i=0;i<a.length;i++) {
@@ -155,10 +181,12 @@ public abstract class usacotools {
 		return b;
 	}
 	public static int ebs(int arr[], int l, int r, int x) {
+		
 		Arrays.sort(arr);
 		return binarySearch(arr, l,  r, x);
 	}
 	public static int lsearch(int[] a,int b) {
+		
 		for(int i=0;i<a.length;i++) {
 			if(a[i]==b) {
 				return i;
@@ -167,6 +195,7 @@ public abstract class usacotools {
 		return -1;
 	}
 	public static void print(String out) {
+		
 		System.out.print(out+"\n");
 	}
 	public static void printf(String out) {
@@ -182,6 +211,7 @@ public abstract class usacotools {
 		}
 	}
 	public static int[] toArray(ArrayList<Integer> arr) {
+		if(!(lock)) {return null;}
 		int[] stuff=new int[arr.size()];
 		for(int i=0;i<arr.size();i++) {
 			stuff[i]=arr.get(i);
@@ -190,6 +220,7 @@ public abstract class usacotools {
 		
 	}
 	public static String[] toArrays(ArrayList<String> arr) {
+		if(!(lock)) {return null;}
 		String[] stuff=new String[arr.size()];
 		for(int i=0;i<arr.size();i++) {
 			stuff[i]=arr.get(i);
@@ -210,6 +241,7 @@ public abstract class usacotools {
 		return System.nanoTime();
 	}
 	public static void clear(){
+		
 	    //Clears Screen in java
 	    try {
 	        if (System.getProperty("os.name").contains("Windows"))
@@ -309,6 +341,7 @@ public abstract class usacotools {
     	
         }
         public static long slowfib(long num){
+        	//Slow recursion fibonnaci
     	if(num<=1) {
     		return num;
     	}
@@ -317,6 +350,9 @@ public abstract class usacotools {
     }
     public static ArrayList<Long> fibmem=new ArrayList<Long>();
     public static long ffib(long n){
+    	/*
+    	 * Fibonnaci implemented with DP
+    	 */
     	if(n<=1) {
     		return n;
     	}
@@ -335,6 +371,7 @@ public abstract class usacotools {
         fibmem.add((long) 0);fibmem.add((long)1);fibmem.add((long)1);fibmem.add((long)2);
     }
     public static void show2Darr(int[][] a) {
+    	//Print out a 2D array for you
     	for(int[] b:a) {
     		for(int c:b) {
     			print(c+" ","");
@@ -344,6 +381,7 @@ public abstract class usacotools {
     	}
     }
     public static void showarr(int[] a) {
+    	//Print out a array for you
     	for(int x:a) {print(x+" ");}
     }
 	public static int[][] dpcache;
@@ -366,62 +404,90 @@ public abstract class usacotools {
 	public static void kssetup(int n,int W) {
 		dpcache=new int[n+1][W+1];
 	}
-	public static void main(String[] args) throws Exception{
+	public static int count(int[] arr) {
 		/*
-		 * Short demo of stuff
-		 * Making an error would also demo error reporting
-		 * 
+		 * Number of groups of 1s
+		 * Modify for other purposes if needed
+		 * Example
+		 * 1111000111
+		 * Returns 2
 		 * 
 		 */
-		System.out.println("Running demo");
-		Scanner sc=getsysscan();
-		print("Welcome to the demo");
-		print(">","");
-		int val;
-		/*
-		int[][] testarray= {
-				{1,1,2,7,7,1,1,1},
-				{1,1,4,0,7,1,2,2},
-				{0,3,6,9,1,0,0,0},
-				{0,3,0,1,0,0,0,0},
-				{0,3,0,0,0,0,0,0},
-				{1,1,5,1,3,1,1,1},
-				{1,1,1,1,3,1,1,1},
-		};
-		*/
-		int[][] testarray= {
-				{1,2,3,1},
-				{4,5,6,2},
-				{7,8,9,3},
-				{10,69,1,4}
-				
-		};
-		print("Roation of 90 degrees\n Before \n ");
-		show2Darr(testarray);
-		print("After \n");
-		show2Darr(rotate90cw(testarray));
-		print("BEFORE:");
-		int[][] ii= {
-				{1,1,2,3},
-				{1,0,2,1},
-				{1,1,1,1},
-				{1,2,3,4}
-		};
-		show2Darr(ii);
-		print("After H reflect:");
-		show2Darr(reverseh(ii));
-		
-		try {
-		  val=sc.nextInt();
-		}catch(Exception e) {
-			print("Oops that did not go well please rerun and choose a INTEGER");
-			val=-1;
-			report(e);
-			print("How about we test error reporting");
-			console();
+		boolean b=false;int c=0;int temp;
+		for(int i=0;i<arr.length;i++) {
+			temp=arr[i];
+			if(temp==0 && b) {
+				b=false;
+				c++;
+			}
+			if(temp==1 && b==false) {
+				b=true;
+			}
 		}
-		if(1==val) {
-			
+		return c;
+	}
+	private static boolean _lock=false;
+	public static void NOLOCK() {
+		_lock=true;
+	}
+	public static void LOCK() {
+		if(!(_lock)) {lock=true;}
+	}
+	public static void UNLOCK() {
+		if(!(_lock)) {lock=false;}
+	}
+	public static String sha256(String input) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] result = md.digest(input.getBytes());
+        StringBuffer s = new StringBuffer();
+        for (int i = 0; i < result.length; i++) {
+            s.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+        }
+         
+        return s.toString();
+    }
+	public static String sha(String input,String type) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance(type);
+        byte[] result = md.digest(input.getBytes());
+        StringBuffer s = new StringBuffer();
+        for (int i = 0; i < result.length; i++) {
+            s.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+        }
+         
+        return s.toString();
+    }
+	public static double cos(double a) {return Math.cos(a);}
+	public static double sin(double a) {return Math.sin(a);}
+	public static double abs(double a) {return Math.abs(a);}
+	public static double floor(double a) {return Math.floor(a);}
+	public static double ceil(double a) {return Math.ceil(a);}
+	
+	public static void main(String[] args) throws Exception{
+		System.out.println("Running");
+		$1();
+		print("the demo has been removed do to lack of support. Instead we display info about the library.");
+		$1();
+		System.out.println($r());
+	}
+	public static Queue<Long> speedqueue=new LinkedList<Long>();
+	public static long prevtime=0;
+	public static void $1() {
+		long time=System.currentTimeMillis();
+		if(prevtime==0) {
+			prevtime=time;
+		}else {
+			speedqueue.add((long) abs(time-prevtime));
+			prevtime=0;
 		}
+	}
+	public static long $r() {
+		return speedqueue.poll().longValue();
+	}
+	public static boolean $r$smatch(String a,String b) {
+		return Pattern.matches(a, b);
+	}
+	public static boolean $r$match(String a,String b) throws Exception{
+		//WIP
+		throw new Exception("Not implemented");
 	}
 }
