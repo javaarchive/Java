@@ -7,6 +7,8 @@ public class dfs implements VisitListener{
 	public Stack<node> q = new Stack<node>();
 	public ArrayList<node> vn = new ArrayList<node>();
 	public ArrayList<node> search(node startNode,VisitListener search) {
+		this.q.clear();
+		this.vn.clear();
 		this.q.add(startNode);
 		this.vn.add(startNode);
 		node cur;
