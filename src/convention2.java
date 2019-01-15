@@ -34,17 +34,21 @@ public class convention2 {
 		int maxsenority;
 		System.out.println(time);
 		while(cows_eaten < N) {
+			if(theline.isEmpty()) {
 			tc = time.get(cows_eaten);
+			}else {
+			tc = theline.remove(0);
+			}
 			maxsenority = -1;
 			cow nextcow = new cow(-1,-1); // Not guarented to have a conflicting time 
 			int j = 0;
 			while(true) {
-				j ++;
-				if(time.get(cows_eaten + j).x >= tc.x+tc.y || theline.contains(time.get(cows_eaten + j))) { // If after the current cow is finsihed then all cows after it we don't have to worry about
+				cows_eaten++;
+				if(time.get(cows_eaten).x >= tc.x+tc.y || theline.contains(time.get(cows_eaten))) { // If after the current cow is finsihed then all cows after it we don't have to worry about
 					break;
 				}else {
-					cows_eaten++;
-					theline.add(time.get(cows_eaten + j));
+					
+					theline.add(time.get(cows_eaten));
 				}
 			}
 			nextcow.x = tc.x + tc.y; // When cow finishes
