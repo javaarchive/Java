@@ -49,14 +49,10 @@ public class convention2 {
 			maxsenority = -1;
 			//cow nextcow = new cow(-1,-1); // Not guaranteed to have a conflicting time 
 			int count = 0;
-			while(true) {			
+			while(cows_eaten<N &&time.get(cows_eaten).x < ctime) {			
 				cows_eaten++;
-				if(cows_eaten>=N ||time.get(cows_eaten).x >= ctime) { // If after the current cow is finished then all cows after it we don't have to worry about
-					break;
-				}else {
-					count ++;
-					theline.add(time.get(cows_eaten));
-				}
+				count ++;
+				theline.add(time.get(cows_eaten));
 			}
 			if(count>0) {theline.sort(cowcompare);}
 		}
