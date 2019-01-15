@@ -28,23 +28,31 @@ public class convention2 {
 		List<cow> theline = new ArrayList<cow>();
 		int c1; // Cache calculations
 		cow tc = new cow(-2,-2);
-		int mtime = -1,ctime;
+		int mtime = -1,ctime,waittime;
+		ctime  = 0;
 		cow c2;
 		int cows_eaten = 0;
 		int maxsenority;
 		System.out.println(time);
 		while(cows_eaten < N) {
 			if(theline.isEmpty()) {
-			tc = time.get(cows_eaten);
+				tc = time.get(cows_eaten);
+			
 			}else {
-			tc = theline.remove(0);
+			
+				tc = theline.remove(0);
+				waittime = ctime - tc.x;
+				if(waittime > mtime) {
+					mtime = waittime;
+				}
 			}
+			ctime = ctime + tc.y;
 			maxsenority = -1;
 			cow nextcow = new cow(-1,-1); // Not guarented to have a conflicting time 
 			int count = 0;
 			while(true) {			
 				cows_eaten++;
-				if(time.get(cows_eaten).x >= tc.x+tc.y || theline.contains(time.get(cows_eaten))) { // If after the current cow is finsihed then all cows after it we don't have to worry about
+				if(time.get(cows_eaten).x >= ctime || theline.contains(time.get(cows_eaten))) { // If after the current cow is finsihed then all cows after it we don't have to worry about
 					break;
 				}else {
 					count ++;
@@ -52,7 +60,7 @@ public class convention2 {
 				}
 			}
 			if(count>0) {theline.sort(cowcompare);}
-			nextcow.x = tc.x + tc.y; // When cow finishes
+			
 			
 		}
 
