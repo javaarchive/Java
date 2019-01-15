@@ -43,14 +43,12 @@ public class convention2 {
 				if(time.get(cows_eaten + j).x >= tc.x+tc.y || theline.contains(time.get(cows_eaten + j))) { // If after the current cow is finsihed then all cows after it we don't have to worry about
 					break;
 				}else {
-					int current_senority = senority.get(time.get(cows_eaten + j));
-					if(current_senority > maxsenority) {
-						maxsenority = current_senority;
-						nextcow = time.get(cows_eaten + j);
-					}
+					cows_eaten++;
+					theline.add(time.get(cows_eaten + j));
 				}
 			}
-			if(nextcow.x != -1 && nextcow.y != -1) {theline.add(nextcow);}
+			nextcow.x = tc.x + tc.y; // When cow finishes
+			
 		}
 
 
