@@ -36,7 +36,7 @@ public class convention2 {
 		//System.out.println(time);
 		while(cows_eaten < N || theline.size() > 0) {
 			if(theline.isEmpty()) {
-				tc = time.get(cows_eaten);
+				tc = time.get(cows_eaten++);
 				ctime = tc.x;
 			}else {
 				tc = theline.remove(0);
@@ -50,9 +50,9 @@ public class convention2 {
 			//cow nextcow = new cow(-1,-1); // Not guaranteed to have a conflicting time 
 			int count = 0;
 			while(cows_eaten<N &&time.get(cows_eaten).x < ctime) {			
+				theline.add(time.get(cows_eaten));
 				cows_eaten++;
 				count ++;
-				theline.add(time.get(cows_eaten));
 			}
 			if(count>0) {theline.sort(cowcompare);}
 		}
