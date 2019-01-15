@@ -40,7 +40,6 @@ public class barn1 {
 			blockedstall=Integer.parseInt(f.readLine());
 			stalls[blockedstall]=1;
 			bstalls[i]=blockedstall;
-			
 		}
 		f.close();
 		f=null;
@@ -55,21 +54,23 @@ public class barn1 {
 		
 		for(int bs1:bstalls) {
 			for(int bs2:bstalls) {
-				if(bs1==bs2) {
-					System.out.println("Debug point 2: Info, blockedstall: "+blockedstall+", combination: "+combination+", More info: bs1: "+bs1+", bs2: "+bs2);
+				if(bs1==bs2 || bs1>bs2 || bs1==0 || bs2==0) {
+					//System.out.println("Debug point 2: Info, blockedstall: "+blockedstall+", combination: "+combination+", More info: bs1: "+bs1+", bs2: "+bs2);
+					System.out.println("Both are same, bs1: "+bs1+", bs2: "+bs2);
+					continue;
 				}else {
 				combination++;//increment
 				blockedstall=boarddist(bs1,bs2);
-				System.out.println("Debug point 1: Info, blockedstall: "+blockedstall+", combination: "+combination+", More info: bs1: "+bs1+", bs2: "+bs2);
+				//System.out.println("Debug point 1: Info, blockedstall: "+blockedstall+", combination: "+combination+", More info: bs1: "+bs1+", bs2: "+bs2);
+				System.out.println("bs1: "+bs1+", bs2: "+bs2);
 				mergecosts[blockedstall][combination][0]=bs1;
 				mergecosts[blockedstall][combination][1]=bs2;
 				
 				}
 			}
 		}
+		System.out.println(combination);
 		combination=0;
-		//for(int i=0;i<)
-		
+		//for(int i=0;i<)	
 	}
-
 }
