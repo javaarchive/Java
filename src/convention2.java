@@ -39,7 +39,6 @@ public class convention2 {
 				tc = time.get(cows_eaten);
 				ctime = tc.x;
 			}else {
-			
 				tc = theline.remove(0);
 				waittime = ctime - tc.x;
 				if(waittime > mtime) {
@@ -60,11 +59,7 @@ public class convention2 {
 				}
 			}
 			if(count>0) {theline.sort(cowcompare);}
-			
-			
 		}
-
-
 		//System.out.println(mtime);
 		PrintWriter pw = new PrintWriter(new FileWriter("convention2.out"));
 		pw.print(mtime);
