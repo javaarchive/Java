@@ -3,7 +3,7 @@ import java.util.*;
 public class convention2 {
 
 	public static void main(String[] args) throws IOException{
-		BufferedReader f= new BufferedReader(new FileReader("2.in"));
+		BufferedReader f= new BufferedReader(new FileReader("convention2.in"));
 		StringTokenizer st;
 		int N = Integer.parseInt(f.readLine());
 		Map<cow,Integer> senority = new HashMap<cow,Integer>();
@@ -46,7 +46,7 @@ public class convention2 {
 					continue;
 				}
 				
-				ctime = tc.x + tc.y - c2.x;
+				ctime = tc.x - c2.x;
 				//System.out.println("Achieved time of "+ctime);
 				if(ctime > mtime) {
 					if(!nodouble) {
