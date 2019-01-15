@@ -33,8 +33,8 @@ public class convention2 {
 		cow c2;
 		int cows_eaten = 0;
 		int maxsenority;
-		System.out.println(time);
-		while(cows_eaten < N) {
+		//System.out.println(time);
+		while(cows_eaten < N || theline.size() > 0) {
 			if(theline.isEmpty()) {
 				tc = time.get(cows_eaten);
 				ctime = tc.x;
@@ -48,11 +48,11 @@ public class convention2 {
 			}
 			ctime = ctime + tc.y;
 			maxsenority = -1;
-			//cow nextcow = new cow(-1,-1); // Not guarented to have a conflicting time 
+			//cow nextcow = new cow(-1,-1); // Not guaranteed to have a conflicting time 
 			int count = 0;
 			while(true) {			
 				cows_eaten++;
-				if(time.get(cows_eaten).x >= ctime || theline.contains(time.get(cows_eaten))) { // If after the current cow is finsihed then all cows after it we don't have to worry about
+				if(cows_eaten>=N ||time.get(cows_eaten).x >= ctime) { // If after the current cow is finished then all cows after it we don't have to worry about
 					break;
 				}else {
 					count ++;
