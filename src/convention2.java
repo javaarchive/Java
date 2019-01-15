@@ -31,18 +31,15 @@ public class convention2 {
 		int mtime = -1,ctime;
 		cow c2;
 		boolean first =true;
-		boolean runagain = false;
-		for(int i = 0; i < time.size() || runagain; i ++) {
+		for(int i = 0; i < time.size(); i ++) {
 			if(theline.isEmpty()) {
-				runagain = false;
 			tc = time.get(i);// Short for the cow
 			}else {
 				System.out.println(tc.x +" " +  tc.y +" "+ theline.get(0).x+" "+theline.get(0).y);
 				c2 = theline.get(0);
 				boolean nodouble = c2.equals(tc);
 				if(nodouble) {
-					//i --; // Make sure loop runs again
-					runagain = true; // Better code
+					i --; // Make sure loop runs again
 					time.remove(c2); // Remove cow
 					tc = theline.remove(0); // Let the waiting cow eat
 					continue;
@@ -56,9 +53,7 @@ public class convention2 {
 					mtime = ctime;
 					}
 				}
-				
-				//i --; // Make sure loop runs again
-				runagain = true; // Better code
+				i --; // Make sure loop runs again
 				time.remove(c2); // Remove cow
 				//senority.remove(theline.get(0));
 				tc = theline.remove(0); // Let the waiting cow eat
