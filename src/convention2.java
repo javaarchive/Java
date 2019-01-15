@@ -30,58 +30,30 @@ public class convention2 {
 		cow tc = new cow(-2,-2);
 		int mtime = -1,ctime;
 		cow c2;
-		boolean first =true;
-		for(int i = 0; i < time.size(); i ++) {
-			System.out.println("Completed "+i+" of "+time.size()+" <- Value may change but N is "+N);
-			if(theline.isEmpty()) {
-			tc = time.get(i);// Short for the cow
-			}else {
-				//System.out.println(tc.x +" " +  tc.y +" "+ theline.get(0).x+" "+theline.get(0).y);
-				c2 = theline.get(0);
-				boolean nodouble = c2.equals(tc);
-				if(nodouble) {
-					i --; // Make sure loop runs again
-					time.remove(c2); // Remove cow
-					tc = theline.remove(0); // Let the waiting cow eat
-					continue;
-				}
-				
-				ctime = tc.x + tc.y - c2.x;
-				//System.out.println("Achieved time of "+ctime);
-				if(ctime > mtime) {
-					if(!nodouble) {
-					//System.out.println("New range");
-					mtime = ctime;
+		int cows_eaten = 0;
+		int maxsenority;
+		System.out.println(time);
+		while(cows_eaten < N) {
+			tc = time.get(cows_eaten);
+			maxsenority = -1;
+			cow nextcow = new cow(-1,-1); // Not guarented to have a conflicting time 
+			int j = 0;
+			while(true) {
+				j ++;
+				if(time.get(cows_eaten + j).x >= tc.x+tc.y || theline.contains(time.get(cows_eaten + j))) { // If after the current cow is finsihed then all cows after it we don't have to worry about
+					break;
+				}else {
+					int current_senority = senority.get(time.get(cows_eaten + j));
+					if(current_senority > maxsenority) {
+						maxsenority = current_senority;
+						nextcow = time.get(cows_eaten + j);
 					}
 				}
-				i --; // Make sure loop runs again
-				time.remove(c2); // Remove cow
-				//senority.remove(theline.get(0));
-				tc = theline.remove(0); // Let the waiting cow eat
-				tc.x = tc.x + ctime;
 			}
-			
-			c1 = tc.x + tc.y;
-			
-			for(int j = i + 1; j < time.size(); j ++) {
-				if (time.get(i).x > time.get(j).x) {
-					//break;
-					continue; // On second thought
-				//throw new IOException("Something impossible just happeneded.");	
-				}
-				if(time.get(j).x > c1) {
-					break;
-				}
-				
-				theline.add(time.get(j));
-				theline.sort(cowcompare);
-			}
-			if(i == 0 && first) {
-				//System.out.println(theline.remove(0));
-			}
-			//System.out.println(theline);
-			first = false;
+			if(nextcow.x != -1 && nextcow.y != -1) {theline.add(nextcow);}
 		}
+
+
 		//System.out.println(mtime);
 		PrintWriter pw = new PrintWriter(new FileWriter("convention2.out"));
 		pw.print(mtime);
