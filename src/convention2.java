@@ -46,7 +46,7 @@ public class convention2 {
 					continue;
 				}
 				
-				ctime = tc.x - c2.x;
+				ctime = tc.x + tc.y - c2.x;
 				//System.out.println("Achieved time of "+ctime);
 				if(ctime > mtime) {
 					if(!nodouble) {
