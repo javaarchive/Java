@@ -3,7 +3,7 @@ import java.util.*;
 public class convention2 {
 
 	public static void main(String[] args) throws IOException{
-		BufferedReader f= new BufferedReader(new FileReader("convention2.in"));
+		BufferedReader f= new BufferedReader(new FileReader("2.in"));
 		StringTokenizer st;
 		int N = Integer.parseInt(f.readLine());
 		Map<cow,Integer> senority = new HashMap<cow,Integer>();
@@ -32,10 +32,11 @@ public class convention2 {
 		cow c2;
 		boolean first =true;
 		for(int i = 0; i < time.size(); i ++) {
+			System.out.println("Completed "+i+" of "+time.size()+" <- Value may change but N is "+N);
 			if(theline.isEmpty()) {
 			tc = time.get(i);// Short for the cow
 			}else {
-				System.out.println(tc.x +" " +  tc.y +" "+ theline.get(0).x+" "+theline.get(0).y);
+				//System.out.println(tc.x +" " +  tc.y +" "+ theline.get(0).x+" "+theline.get(0).y);
 				c2 = theline.get(0);
 				boolean nodouble = c2.equals(tc);
 				if(nodouble) {
@@ -46,10 +47,10 @@ public class convention2 {
 				}
 				
 				ctime = tc.x + tc.y - c2.x;
-				System.out.println("Achieved time of "+ctime);
+				//System.out.println("Achieved time of "+ctime);
 				if(ctime > mtime) {
 					if(!nodouble) {
-					System.out.println("New range");
+					//System.out.println("New range");
 					mtime = ctime;
 					}
 				}
@@ -78,7 +79,7 @@ public class convention2 {
 			if(i == 0 && first) {
 				//System.out.println(theline.remove(0));
 			}
-			System.out.println(theline);
+			//System.out.println(theline);
 			first = false;
 		}
 		//System.out.println(mtime);
