@@ -37,7 +37,7 @@ public class convention2 {
 		while(cows_eaten < N) {
 			if(theline.isEmpty()) {
 				tc = time.get(cows_eaten);
-			
+				ctime = tc.x;
 			}else {
 			
 				tc = theline.remove(0);
@@ -48,7 +48,7 @@ public class convention2 {
 			}
 			ctime = ctime + tc.y;
 			maxsenority = -1;
-			cow nextcow = new cow(-1,-1); // Not guarented to have a conflicting time 
+			//cow nextcow = new cow(-1,-1); // Not guarented to have a conflicting time 
 			int count = 0;
 			while(true) {			
 				cows_eaten++;
