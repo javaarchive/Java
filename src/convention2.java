@@ -61,6 +61,7 @@ public class convention2 {
 			}
 			
 			c1 = tc.x + tc.y;
+			
 			for(int j = i + 1; j < time.size(); j ++) {
 				if (time.get(i).x > time.get(j).x) {
 					//break;
