@@ -47,10 +47,10 @@ public class convention2 {
 				if(time.get(cows_eaten).x >= tc.x+tc.y || theline.contains(time.get(cows_eaten))) { // If after the current cow is finsihed then all cows after it we don't have to worry about
 					break;
 				}else {
-					
 					theline.add(time.get(cows_eaten));
 				}
 			}
+			theline.sort(cowcompare);
 			nextcow.x = tc.x + tc.y; // When cow finishes
 			
 		}
