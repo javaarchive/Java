@@ -12,7 +12,7 @@ public class dining {
         return min_index; 
     } 
     final int OFFSET  = -1; // Offset by 1 for adjancey matirix because index begins at 0
-    static int dijkstra(int graph[][], int src) { 
+    static int[] dijkstra(int graph[][], int src) { 
         int dist[] = new int[V]; 
         boolean set1[] = new boolean[V]; 
         for (int i = 0; i < V; i++) { 
