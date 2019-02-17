@@ -31,8 +31,8 @@ public class dining {
                     dist[v] = dist[u] + graph[u][v]; 
         }           
     } 
-	public static void main(String[] args) {
-		BufferedReader f = new BufferedReader();
+	public static void main(String[] args) throws IOException{
+		BufferedReader f = new BufferedReader(new FileReader("dining.in"));
 
 	}
 }
