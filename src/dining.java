@@ -1,9 +1,10 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 public class dining {
 	static final int V=9; 
-    static int minDistance(int dist[], Boolean sptSet[])  { 
+    static int minDistance(int dist[], boolean[] sptSet)  { 
         int min = Integer.MAX_VALUE, min_index=-1; // Computers are too stupid to understand infinite
+        
         for (int v = 0; v < V; v++) 
             if (sptSet[v] == false && dist[v] <= min) 
             { 
@@ -14,7 +15,7 @@ public class dining {
     } 
     static void dijkstra(int graph[][], int src) { 
         int dist[] = new int[V]; 
-        Boolean sptSet[] = new Boolean[V]; 
+        boolean sptSet[] = new boolean[V]; 
         for (int i = 0; i < V; i++) { 
             dist[i] = Integer.MAX_VALUE; 
             sptSet[i] = false; 
