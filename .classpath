@@ -5,8 +5,6 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Java/src"/>
 		</attributes>
 		<classpathentry kind="src" path=""/>	</classpathentry>
-	<classpathentry kind="src" path="src_revison2"/>
-	<classpathentry kind="src" path="other"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
