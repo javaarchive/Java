@@ -13,27 +13,7 @@ public class dining {
     } 
     static final int OFFSET  = -1; // Offset by 1 for adjancey matirix because index begins at 0
     public static int[] root;
-    static int[] dijkstra(int graph[][], int src) { 
-    	V = graph.length;
-        int dist[] = new int[V]; 
-        root = new int[V];
-        boolean set1[] = new boolean[V]; 
-        for (int i = 0; i < V; i++) { 
-            dist[i] = Integer.MAX_VALUE; 
-            set1[i] = false; 
-        } 
-        dist[src] = 0;
-        for (int count = 0; count < V-1; count++) { 
-            int u = minDist(dist, set1);          
-            set1[u] = true;            
-            for (int v = 0; v < V; v++)    
-                if (!set1[v] && graph[u][v]!=0 && dist[u] != Integer.MAX_VALUE && dist[u]+graph[u][v] < dist[v]){
-                    dist[v] = dist[u] + graph[u][v]; 
-                    root[v] = u;
-             }
-        }   
-        return dist;
-    } 
+    
 	public static void main(String[] args) throws IOException{
 		BufferedReader f = new BufferedReader(new FileReader("dining.in"));
 		StringTokenizer st = new StringTokenizer(f.readLine());
