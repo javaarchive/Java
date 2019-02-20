@@ -16,7 +16,9 @@ public class dining {
     public static int status = -1;
     public static int[] arr;
     public static int[] pasture;
-    private static int[] dijkstra(int[][] graph1, int startVertex) {
+    public static List<IPair> pastures = new ArrayList<IPair>();
+    
+    public static int[] dijkstra(int[][] graph1, int startVertex) {
     	status = 0;
         int N = graph1.length;
         int[] dists = new int[N];
@@ -48,10 +50,11 @@ public class dining {
                         edgeDistance;
                    
                 }
-                if(edgeDistance<0) {
+                if(pastures.contains(new IPair(nearestVertex,vertexIndex))) {
                 	System.out.println("Info: "+nearestVertex+" "+vertexIndex);
-                	arr[nearestVertex-1] = 1;
-                	arr[vertexIndex-1] = 1;
+                	System.out.println("Set "+(nearestVertex - 1) + " and "+(vertexIndex - 1));
+                	arr[nearestVertex] = 1;
+                	arr[vertexIndex] = 1;
                 	/*
                 	if(pasture[nearestVertex] > 0) {
                 	for(int j = 0; j < N; j++) {
@@ -79,13 +82,13 @@ public class dining {
         return dists;
     }
 	public static void main(String[] args) throws IOException{
-		BufferedReader f = new BufferedReader(new FileReader("dining.in"));
+		BufferedReader f = new BufferedReader(new FileReader("1.in"));
 		StringTokenizer st = new StringTokenizer(f.readLine());
 		int N = Integer.parseInt(st.nextToken());
 		int M = Integer.parseInt(st.nextToken());
 		int K = Integer.parseInt(st.nextToken());
 		int[][] matrix = new int[N][N];
-		arr = new int[N-1];
+		arr = new int[N];
 		pasture = new int[N];
 		for(int i = 0; i < N; i++){
 		//Arrays.fill(matrix[i], Integer.MAX_VALUE);
@@ -113,15 +116,18 @@ public class dining {
 					//System.out.println("Override 2   "+x+" "+j+" "+y);
 				matrix[x][j] = matrix[x][j] - y;
 				}
+				
 			}
+			pastures.add(new IPair(x,y));
+			
 		}
 		// End modification
-		//System.out.println("Modifacation Complete");
-		//System.out.println(Arrays.deepToString(matrix).replaceAll("],*", "],\n"));
+		System.out.println("Modifacation Complete");
+		System.out.println(Arrays.deepToString(matrix).replaceAll("],*", "],\n"));
 		int[] out = dijkstra(matrix, N-1);
 		
-		//System.out.println(Arrays.toString(root));
-		//System.out.println(Arrays.toString(out));
+		System.out.println(Arrays.toString(root));
+		System.out.println(Arrays.toString(out));
 		PrintWriter pw = new PrintWriter(new FileWriter("dining.out"));
 		for(int k:arr) {
 			pw.println(k);
@@ -129,4 +135,22 @@ public class dining {
 		pw.close();
 		
 	}
+}
+class IPair implements Comparable<IPair>{
+	int x,y;
+	public IPair(int x,int y) {
+		this.x = x;
+		this.y = y;
+	}
+	public IPair() {
+		this.x = 0;
+		this.y = 0;
+	}
+	@Override
+	public int compareTo(IPair arg0) {
+		
+		return this.x - arg0.x;
+	}
+	
+	
 }
