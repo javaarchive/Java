@@ -13,7 +13,11 @@ public class dining {
     } 
     static final int OFFSET  = -1; // Offset by 1 for adjancey matirix because index begins at 0
     public static int[] root;
+    public static int status = -1;
+    public static int[] arr;
+    public static int[] pasture;
     private static int[] dijkstra(int[][] graph1, int startVertex) {
+    	status = 0;
         int N = graph1.length;
         int[] dists = new int[N];
         boolean[] added = new boolean[N];
@@ -35,18 +39,42 @@ public class dining {
             }
             added[nearestVertex] = true;
             for (int vertexIndex = 0; vertexIndex < N; vertexIndex++) {
+            	
                 int edgeDistance = graph1[nearestVertex][vertexIndex];
-                if (edgeDistance > 0 && ((shortestDistance + edgeDistance) < dists[vertexIndex])) {
+                // Used to be    >
+                if (edgeDistance != 0 && ((shortestDistance + edgeDistance) < dists[vertexIndex])) {
                     parents[vertexIndex] = nearestVertex;
                     dists[vertexIndex] = shortestDistance +
                         edgeDistance;
+                   
+                }
+                if(edgeDistance<0) {
+                	System.out.println("Info: "+nearestVertex+" "+vertexIndex);
+                	arr[nearestVertex-1] = 1;
+                	arr[vertexIndex-1] = 1;
+                	if(pasture[nearestVertex] > 0) {
+                	for(int j = 0; j < N; j++) {
+        				
+        					graph1[nearestVertex][j] = 0;
+                        	graph1[j][nearestVertex] = 0;
+        				
+        			}
+                	}
+                	if(pasture[vertexIndex] > 0) {
+                    	for(int j = 0; j < N; j++) {
+            				
+            					graph1[j][vertexIndex] = 0;
+                            	graph1[vertexIndex][j] = 0;
+            				
+            			}
+                    	}
+                	graph1[nearestVertex][vertexIndex] = 0;
+                	graph1[vertexIndex][nearestVertex] = 0;
                 }
             }
         }
         root = parents;
         return dists;
-        
-
     }
 	public static void main(String[] args) throws IOException{
 		BufferedReader f = new BufferedReader(new FileReader("dining.in"));
@@ -55,6 +83,8 @@ public class dining {
 		int M = Integer.parseInt(st.nextToken());
 		int K = Integer.parseInt(st.nextToken());
 		int[][] matrix = new int[N][N];
+		arr = new int[N-1];
+		pasture = new int[N];
 		for(int i = 0; i < N; i++){
 		//Arrays.fill(matrix[i], Integer.MAX_VALUE);
 		}
@@ -64,8 +94,37 @@ public class dining {
 			matrix[x + OFFSET][y + OFFSET] = z;
 			matrix[y + OFFSET][x + OFFSET] = z;
 		}
-		int[] out = dijkstra(matrix, N - 1);
-		System.out.println(Arrays.toString(root));
-		System.out.println(Arrays.toString(out));
+		//System.out.println(Arrays.deepToString(matrix).replaceAll("],*", "],\n"));
+		// Dijkstra Modification begins here
+		for(int i = 0; i < K; i++) {
+			st = new StringTokenizer(f.readLine());
+			int x = Integer.parseInt(st.nextToken());
+			int y = Integer.parseInt(st.nextToken());
+			pasture[x-1] = y;
+			x = x + OFFSET;
+			for(int j = 0; j < N; j++) {
+				if(matrix[j][x] != 0) {
+					//System.out.println("Override 1   "+j+" "+x+" "+y);
+				matrix[j][x] = matrix[j][x] - y;
+				}
+				if(matrix[x][j] != 0) {
+					//System.out.println("Override 2   "+x+" "+j+" "+y);
+				matrix[x][j] = matrix[x][j] - y;
+				}
+			}
+		}
+		// End modification
+		//System.out.println("Modifacation Complete");
+		//System.out.println(Arrays.deepToString(matrix).replaceAll("],*", "],\n"));
+		int[] out = dijkstra(matrix, N-1);
+		
+		//System.out.println(Arrays.toString(root));
+		//System.out.println(Arrays.toString(out));
+		PrintWriter pw = new PrintWriter(new FileWriter("dining.out"));
+		for(int k:arr) {
+			pw.println(k);
+		}
+		pw.close();
+		
 	}
 }
