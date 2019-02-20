@@ -51,7 +51,8 @@ public class dining {
                    
                 }
                 //if(pastures.contains(new IPair(nearestVertex,vertexIndex))) {
-                if(pastures.contains(nearestVertex) || pastures.contains(vertexIndex)) {
+                
+                if(pastures.contains(nearestVertex) ) {
                 	System.out.println("Info: "+nearestVertex+" "+vertexIndex);
                 	System.out.println("Set "+(nearestVertex - 1) + " and "+(vertexIndex - 1));
                 	arr[nearestVertex] = 1;
@@ -83,7 +84,7 @@ public class dining {
         return dists;
     }
 	public static void main(String[] args) throws IOException{
-		BufferedReader f = new BufferedReader(new FileReader("1.in"));
+		BufferedReader f = new BufferedReader(new FileReader("2.in"));
 		StringTokenizer st = new StringTokenizer(f.readLine());
 		int N = Integer.parseInt(st.nextToken());
 		int M = Integer.parseInt(st.nextToken());
@@ -131,8 +132,8 @@ public class dining {
 		System.out.println(Arrays.toString(root));
 		System.out.println(Arrays.toString(out));
 		PrintWriter pw = new PrintWriter(new FileWriter("dining.out"));
-		for(int k:arr) {
-			pw.println(k);
+		for(int k = 0; k < arr.length -1; k ++) {
+			pw.println(arr[k]);
 		}
 		pw.close();
 		
