@@ -52,6 +52,7 @@ public class dining {
                 	System.out.println("Info: "+nearestVertex+" "+vertexIndex);
                 	arr[nearestVertex-1] = 1;
                 	arr[vertexIndex-1] = 1;
+                	/*
                 	if(pasture[nearestVertex] > 0) {
                 	for(int j = 0; j < N; j++) {
         				
@@ -68,6 +69,7 @@ public class dining {
             				
             			}
                     	}
+                    */
                 	graph1[nearestVertex][vertexIndex] = 0;
                 	graph1[vertexIndex][nearestVertex] = 0;
                 }
