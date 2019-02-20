@@ -16,8 +16,8 @@ public class dining {
     public static int status = -1;
     public static int[] arr;
     public static int[] pasture;
-    public static List<IPair> pastures = new ArrayList<IPair>();
-    
+    //public static List<IPair> pastures = new ArrayList<IPair>();
+    public static List<Integer> pastures = new ArrayList<Integer>();
     public static int[] dijkstra(int[][] graph1, int startVertex) {
     	status = 0;
         int N = graph1.length;
@@ -50,7 +50,8 @@ public class dining {
                         edgeDistance;
                    
                 }
-                if(pastures.contains(new IPair(nearestVertex,vertexIndex))) {
+                //if(pastures.contains(new IPair(nearestVertex,vertexIndex))) {
+                if(pastures.contains(nearestVertex) || pastures.contains(vertexIndex)) {
                 	System.out.println("Info: "+nearestVertex+" "+vertexIndex);
                 	System.out.println("Set "+(nearestVertex - 1) + " and "+(vertexIndex - 1));
                 	arr[nearestVertex] = 1;
@@ -118,7 +119,8 @@ public class dining {
 				}
 				
 			}
-			pastures.add(new IPair(x,y));
+			pastures.add(x);
+			//pastures.add(new IPair(x,y));
 			
 		}
 		// End modification
