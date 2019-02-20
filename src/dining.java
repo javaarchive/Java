@@ -44,7 +44,7 @@ public class dining {
             	
                 int edgeDistance = graph1[nearestVertex][vertexIndex];
                 // Used to be    >
-                if (edgeDistance != 0 && ((shortestDistance + edgeDistance) < dists[vertexIndex])) {
+                if (edgeDistance > 0 && ((shortestDistance + edgeDistance) < dists[vertexIndex])) {
                     parents[vertexIndex] = nearestVertex;
                     dists[vertexIndex] = shortestDistance +
                         edgeDistance;
@@ -52,11 +52,11 @@ public class dining {
                 }
                 //if(pastures.contains(new IPair(nearestVertex,vertexIndex))) {
                 
-                if(pastures.contains(nearestVertex) ) {
+                //if(pastures.contains(nearestVertex) ) {
                 	System.out.println("Info: "+nearestVertex+" "+vertexIndex);
                 	System.out.println("Set "+(nearestVertex - 1) + " and "+(vertexIndex - 1));
-                	arr[nearestVertex] = 1;
-                	arr[vertexIndex] = 1;
+                	//arr[nearestVertex] = 1;
+                	//arr[vertexIndex] = 1;
                 	/*
                 	if(pasture[nearestVertex] > 0) {
                 	for(int j = 0; j < N; j++) {        				
@@ -71,9 +71,9 @@ public class dining {
             			}
                     	}
                     */
-                	graph1[nearestVertex][vertexIndex] = 0;
-                	graph1[vertexIndex][nearestVertex] = 0;
-                }
+                	//graph1[nearestVertex][vertexIndex] = 0;
+                	//graph1[vertexIndex][nearestVertex] = 0;
+                //}
             }
         }
         root = parents;
@@ -99,6 +99,7 @@ public class dining {
 		}
 		//System.out.println(Arrays.deepToString(matrix).replaceAll("],*", "],\n"));
 		// Dijkstra Modification begins here
+		int[] out = dijkstra(matrix, N-2);
 		for(int i = 0; i < K; i++) {
 			st = new StringTokenizer(f.readLine());
 			int x = Integer.parseInt(st.nextToken());
@@ -123,13 +124,18 @@ public class dining {
 		// End modification
 		System.out.println("Modifacation Complete");
 		System.out.println(Arrays.deepToString(matrix).replaceAll("],*", "],\n"));
-		int[] out = dijkstra(matrix, N-1);
+		int[] out2 = dijkstra(matrix, N-1);
 		
-		System.out.println(Arrays.toString(root));
-		System.out.println(Arrays.toString(out));
+		//System.out.println(Arrays.toString(root));
+		//System.out.println(Arrays.toString(out));
+		
 		PrintWriter pw = new PrintWriter(new FileWriter("dining.out"));
 		for(int k = 0; k < arr.length -1; k ++) {
-			pw.println(arr[k]);
+			if(out[k] <= out2[k]) {
+				pw.println("1");
+			}else {
+				pw.println("0");
+			}
 		}
 		pw.close();
 		
