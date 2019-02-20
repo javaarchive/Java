@@ -59,19 +59,15 @@ public class dining {
                 	arr[vertexIndex] = 1;
                 	/*
                 	if(pasture[nearestVertex] > 0) {
-                	for(int j = 0; j < N; j++) {
-        				
+                	for(int j = 0; j < N; j++) {        				
         					graph1[nearestVertex][j] = 0;
-                        	graph1[j][nearestVertex] = 0;
-        				
+                        	graph1[j][nearestVertex] = 0;        				
         			}
                 	}
                 	if(pasture[vertexIndex] > 0) {
-                    	for(int j = 0; j < N; j++) {
-            				
+                    	for(int j = 0; j < N; j++) {            				
             					graph1[j][vertexIndex] = 0;
                             	graph1[vertexIndex][j] = 0;
-            				
             			}
                     	}
                     */
