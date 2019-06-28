@@ -83,6 +83,7 @@ public class cowjump {
 		for(int i = 0; i < N; i ++) {
 			StringTokenizer st = new StringTokenizer(f.readLine());
 <<<<<<< HEAD
+<<<<<<< HEAD
 			Point a = new Point(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
 			Point b = new Point(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
 			boolean status;
@@ -110,6 +111,8 @@ public class cowjump {
 					pw.close();
 					System.exit(0);
 =======
+=======
+>>>>>>> parent of c6da410... Long Proofing
 			a = new Point(Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()));
 			b = new Point(Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()));
 			a = a.setIndex(i);
@@ -201,6 +204,9 @@ class Point{
 class Point implements Comparable<Point>{
 	double x,y;
 	int index = -1; 
+<<<<<<< HEAD
+>>>>>>> parent of c6da410... Long Proofing
+=======
 >>>>>>> parent of c6da410... Long Proofing
 	public Point(double x,double y) {
 		this.x = x;
@@ -345,10 +351,13 @@ class Point implements Comparable<Point>{
 		}
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public Point atX_(double x) {
 		return new Point(x,this.atX(x));
 	}
 =======
+=======
+>>>>>>> parent of c6da410... Long Proofing
 	
 	public Point atX_(double x) {
 		return new Point(x,this.atX(x));
