@@ -175,8 +175,9 @@ class Point implements Comparable<Point>{
 	// point q lies on line segment 'pr' 
 	static boolean onSegment(Point p, Point q, Point r) 
 	{ 
-	    if (q.x <= Math.max(p.x, r.x) && q.x >= Math.min(p.x, r.x) && 
-	        q.y <= Math.max(p.y, r.y) && q.y >= Math.min(p.y, r.y)) 
+		
+	    if (q.x <= Long.max(p.x, r.x) && q.x >= Long.min(p.x, r.x) && 
+	        q.y <= Long.max(p.y, r.y) && q.y >= Long.min(p.y, r.y)) 
 	    return true; 
 	  
 	    return false; 
