@@ -43,7 +43,7 @@ public class cowjump {
 		System.out.println("All Tests OK!");
 	}
 	public static void main(String[] args) throws IOException{
-		testIntersections();
+		//testIntersections();
 		// File Openning
 		BufferedReader f = new BufferedReader(new FileReader("cowjump.in"));
 		points = new ArrayList<Point>();
@@ -74,19 +74,20 @@ public class cowjump {
 		int size = points.size();
 		
 		for(int i = 0; i < size; i ++) {
-			System.out.println(points.get(i));
+			//System.out.println(points.get(i));
 		}
 		for(int i =0 ; i < N; i ++) {
-			System.out.println(Arrays.toString(lookup[i]));
-			System.out.println(segements.get(i));
+			//System.out.println(Arrays.toString(lookup[i]));
+			//System.out.println(segements.get(i));
 		}
 		//int currentY = -1;
 		//int index;
 		// boolean newY = true;
 		 List<Integer> pz = new ArrayList<Integer>();
 		long[] tbl = new long[2*N];
-		long max = -1;
-		long maxi = -1;
+		//long max = -1;
+		//long maxi = -1;
+		int minindex = Integer.MAX_VALUE;
 		//System.out.println("===="+N +" "+points.size());
 		for(int i = 0 ; i < points.size(); i ++) {
 			Point p = points.get(i);
@@ -97,50 +98,34 @@ public class cowjump {
 			}else {
 				*/
 			int state = num(p.index,p,lookup);
-			System.out.println("Endpoint "+ state + " "+p);
+			//System.out.println("Endpoint "+ state + " "+p);
 				if(state == 0) {
-					pz.add(p.index);
-					long sz = pz.size() - 1;
-					LineSegement newline = segements.get(p.index);
-					for(int j =0 ;j < sz; j ++ ) {
-							if(Point.intersection(newline,segements.get(pz.get(j)))) {
-								System.out.println("Intersectsion at "+segements.get(p.index)+" -|||- "+segements.get(j));
-								tbl[i] ++;
-								tbl[j] ++;
-								if(tbl[i] > max) {
-									max = tbl[i];
-									maxi = i;
-								}
-								if(tbl[j] > max) {
-									max = tbl[j];
-									maxi = j;
-								}
-							
-						}
-					}
+					pz.add(p.index);					
 				}else if(state == 1) {
+					pz.remove(pz.indexOf(p.index));
 					long sz = pz.size();
 					for(int j =0 ;j < sz ; j ++ ) {
-						for(int k = j + 1; k < sz; k ++) {
+						
 							//if(j == k){
 							//	continue;
 							//}
-							if(Point.intersection(segements.get(pz.get(j)),segements.get(pz.get(k)))) {
-								System.out.println("Intersectsion at "+segements.get(j)+" -|||- "+segements.get(k));
-								tbl[i] ++;
-								tbl[j] ++;
-								if(tbl[i] > max) {
-									max = tbl[i];
-									maxi = i;
+							if(Point.intersection(segements.get(pz.get(j)),segements.get(p.index))) {
+								//System.out.println("Intersectsion at "+segements.get(j)+" -|||- "+segements.get(k));
+								tbl[pz.get(j)] ++;
+								tbl[p.index] ++;
+								if(p.index < minindex) {
+									//max = tbl[p.index];
+									//maxi = p.index;
+									minindex = p.index;
 								}
-								if(tbl[j] > max) {
-									max = tbl[j];
-									maxi = j;
+								if(pz.get(j) > minindex) {
+									//max = tbl[pz.get(j)];
+									//maxi = pz.get(j);
+									minindex = pz.get(j);
 								}
 							}
-						}
 					}
-					pz.remove(pz.indexOf(p.index));
+					
 					
 				}else {
 					continue;
@@ -150,9 +135,9 @@ public class cowjump {
 			//}
 		}
 		// File Writting
-		System.out.println(max + " " + maxi + " " + Arrays.toString(tbl));
+		//System.out.println(max + " " + maxi + " " + Arrays.toString(tbl));
 		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("cowjump.out")));
-		pw.println(max + 1);
+		pw.println(minindex + 1);
 		pw.close();
 	}
 
@@ -275,13 +260,11 @@ class Point implements Comparable<Point>{
 	@Override
 	public int compareTo(Point arg0) {
 		if(arg0.x == this.x) {
-			return Long.compare(this.y, this.y);
-		}else if(this.x > arg0.x) {
-			return -1;
+			return Long.compare(this.y, arg0.y);
 		}else {
-			return 1;
+			return Long.compare(this.x, arg0.x);
 		}
-		//return Double.compare(this.x, arg0.x);
+		//
 		//return 0;
 	}
 }
