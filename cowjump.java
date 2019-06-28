@@ -99,7 +99,7 @@ public class cowjump {
 			System.out.println("Endpoint "+ state + " "+p);
 				if(state == 0) {
 					pz.add(p.index);
-					int sz = pz.size() - 1;
+					long sz = pz.size() - 1;
 					LineSegement newline = segements.get(p.index);
 					for(int j =0 ;j < sz; j ++ ) {
 							if(Point.intersection(newline,segements.get(pz.get(j)))) {
@@ -118,6 +118,27 @@ public class cowjump {
 						}
 					}
 				}else if(state == 1) {
+					long sz = pz.size();
+					for(int j =0 ;j < sz ; j ++ ) {
+						for(int k = j + 1; k < sz; k ++) {
+							//if(j == k){
+							//	continue;
+							//}
+							if(Point.intersection(segements.get(pz.get(j)),segements.get(pz.get(k)))) {
+								System.out.println("Intersectsion at "+segements.get(j)+" -|||- "+segements.get(k));
+								tbl[i] ++;
+								tbl[j] ++;
+								if(tbl[i] > max) {
+									max = tbl[i];
+									maxi = i;
+								}
+								if(tbl[j] > max) {
+									max = tbl[j];
+									maxi = j;
+								}
+							}
+						}
+					}
 					pz.remove(pz.indexOf(p.index));
 					
 				}else {
@@ -154,6 +175,7 @@ class Point implements Comparable<Point>{
 		this.index = i;
 		return this;
 	}
+	
 	static boolean intersection2(Point a, Point b,Point c, Point d) {
 		// OLD CALCULATION CODE
 		Point E = new Point(b.x - a.x, b.y - a.y);
@@ -230,6 +252,7 @@ class Point implements Comparable<Point>{
 	  
 	    return false; // Doesn't fall in any of the above cases 
 	} 
+	
 	static Set<Pair<LineSegement,LineSegement>> notwice = new HashSet<Pair<LineSegement,LineSegement>>();
 	static boolean intersection(LineSegement a,LineSegement b) {
 		//if(notwice.contains(new Pair<LineSegement,LineSegement>(a,b))) {
