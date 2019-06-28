@@ -1,109 +1,142 @@
+// This is cowjump version 2 aka Cow Steeplechase USACO US Open Silver problem 2
+
 import java.io.*;
 import java.util.*;
 public class cowjump {
-	public static int pointYCompare(Point p1, Point p2) {
-		// Compare points
-		// Check if p2 is above, below, or next to p1
-		System.out.println("pointycompare(("+p1.x+","+p1.y+"),("+p2.x+","+p2.y+")");
-		if(p1.y == p2.y) {
-			System.out.println("output: 0"); // Same Y
+	static ArrayList<Point> points;
+	static ArrayList<LineSegement> segements;
+	static int N;
+	
+	public static Point op(int i,Point k, Point[][] input) {
+		Point a = input[i][0];
+		Point b = input[i][0];
+		if(a.eq(k)) {
+			return b;
+		}else {
+			return a;
+		}
+	}
+	public static int num(int i,Point k, Point[][] input) {
+		Point a = input[i][0];
+		Point b = input[i][1];
+		//System.out.println(a +" -- "+b);
+		if(a.eq(k)) {
+			//System.out.println("!");
 			return 0;
-		}
-		if(p2.y < p1.y) {
-			System.out.println("output: -1"); // below
-			return -1;
-		}
-		if(p2.y > p1.y) {
-			System.out.println("output: 1"); // above
+		}else {
 			return 1;
 		}
-		System.out.println("NONE OF THE ABOVE"); // This code should never run, but just keeping this to prevent syntax errors
-		return -9999999;
 	}
-	public static int linesCompare(LineSegement m, LineSegement l) {
-		System.out.println("Checking if line ("+m.a.x+","+m.a.y+")--"+"("+m.b.x+","+m.b.y+")" + " intersects with " + "("+l.a.x+","+l.a.y+")--"+"("+l.b.x+","+l.b.y+")");
-		return pointYCompare(m.a, l.a) * pointYCompare(m.b, l.b);
-	}
-	public static void testIntersections() {
-		assert Point.intersection(new Point(0,0), new Point(2,9), new Point(0,1), new Point(6,1))== true; 
-		//assert Point.intersection(new Point(0,0), new Point(1,1), new Point(3,3), new Point(3,12))== false; 
-		assert linesCompare(new LineSegement(new Point(0,0), new Point(2,3)),new LineSegement(new Point(0,3),new Point(9,1))) == -1;
-		System.out.println("All Tests OK!");
-	}
-	public static boolean sweepCheck(LineSegement s,Point[][] input) {
-		for(int i = 0; i < input.length; i ++) {
-			System.out.println("Checking line "+i);
-			if(input[i][0] == null || input[i][1] == null) {
-				System.out.println("End of segments");
-				break;
-			}
-			System.out.println("Checking "+s.a.x+" - "+input[i][0].x + " - "+s.b.x);
-			boolean firstWithinLine = (s.a.x <= input[i][0].x && s.b.x >= input[i][0].x);
-			System.out.println("firstWithinLine = "+firstWithinLine);
-			//|| (s.a.y <= input[i][0].y && s.b.y >= input[i][0].y);
-			if(firstWithinLine) {
-				// TODO check line cross logic
-				if(linesCompare(s,new LineSegement(input[i][0], input[i][1])) == -1) {
-					System.out.println("Intersect!");
-					return true;
-				}else {
-					System.out.println("No Intersection!");
-				}
-				continue; // Both statements may be true
-			}
-			boolean secondWithinLine = (s.a.x <= input[i][1].x && s.b.x >= input[i][1].x);
-			//|| (s.a.y <= input[i][0].y && s.b.y >= input[i][0].y);
-			if(secondWithinLine) {
-				// TODO check line cross logic
-				if(linesCompare(s,new LineSegement(input[i][0], input[i][1])) == -1) {
-					System.out.println("Intersect!");
-					return true;
-				}else {
-					System.out.println("No Intersection!");
-				}
-			}
-			
+	public static boolean edge(int i, Point k, Point[][] input) {
+		if(input[i][1].x == k.x && input[i][0].x < k.x) {
+			return true;
+		}
+		else if(input[i][0].x == k.x && input[i][1].x < k.x) {
+			return true;
 		}
 		return false;
 	}
 	public static void main(String[] args) throws IOException{
-		testIntersections();
-		// TODO Auto-generated method stub
-		//testIntersections();
+		
+		// File Openning
 		BufferedReader f = new BufferedReader(new FileReader("cowjump.in"));
-		int N = Integer.parseInt(f.readLine());
-		Point[][] input = new Point[N][2];
-		//System.out.println(input[0][0]);
-		for(int i = 0; i < N; i ++) {
+		points = new ArrayList<Point>();
+		segements = new ArrayList<LineSegement>();
+		N = Integer.parseInt(f.readLine());
+		Point[][] lookup = new Point[N][2];
+		for(int i =0 ; i < N; i ++) {
+			Point a,b;
 			StringTokenizer st = new StringTokenizer(f.readLine());
-			Point a = new Point(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
-			Point b = new Point(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
+			a = new Point(Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()));
+			b = new Point(Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()));
+			a = a.setIndex(i);
+			b = b.setIndex(i);
 			if(a.x > b.x) {
-				System.out.println(sweepCheck(
-						new LineSegement(b,a),
-						input));
+				lookup[i][0] = b;
+				lookup[i][1] = a;
 			}else {
-			System.out.println(sweepCheck(
-					new LineSegement(a,b),
-					input));
+			lookup[i][0] = a;
+			lookup[i][1] = b;
 			}
-			input[i][0] = a;
-			input[i][1] = b;
-			/*for(int j = 0; j < i; j ++) {
-				if(Point.intersection(input[j][0], input[j][1], input[i][0], input[i][1])) {
-					PrintWriter pw = new PrintWriter("cowjump.out");
-					pw.println(i+1);
-					pw.close();
-					System.exit(0);
-				}
-			}*/
+			points.add(a);
+			points.add(b);
+			segements.add(new LineSegement(a, b));
+		}
+		points.sort(null);
+		// Algorthim
+		int size = points.size();
+		
+		for(int i = 0; i < size; i ++) {
+			//System.out.println(points.get(i));
+		}
+		for(int i =0 ; i < N; i ++) {
+			//System.out.println(Arrays.toString(lookup[i]));
+			//System.out.println(segements.get(i));
 		}
 		
+		int currentY = -1;
+		int index;
+		// boolean newY = true;
+		 List<Integer> pz = new ArrayList<Integer>();
+		int[] tbl = new int[N];
+		int max = -1;
+		int maxi = -1;
+		for(int i = 0 ; i < N; i ++) {
+			Point p = points.get(i);
+			//index = p.index;
+			/*if(p.y != currentY) {
+				currentY = (int) p.y;
+				continue;
+			}else {
+				*/
+			int state = num(p.index,p,lookup);
+			//System.out.println("Endpoint "+ state + " "+p);
+				if(state == 0) {
+					pz.add(p.index);
+				}else if(state == 1) {
+					pz.remove(pz.indexOf(p.index));
+					
+				}else {
+					continue;
+				}
+				int sz = pz.size();
+				for(int j =0 ;j < sz ; j ++ ) {
+					for(int k = j + 1; k < sz; k ++) {
+						//if(j == k){
+						//	continue;
+						//}
+						if(Point.intersection(segements.get(j),segements.get(k))) {
+							//System.out.println("Intersectsion at "+segements.get(j)+" -|||- "+segements.get(k));
+							tbl[i] ++;
+							tbl[j] ++;
+							if(tbl[i] > max) {
+								max = tbl[i];
+								maxi = i;
+							}
+							if(tbl[j] > max) {
+								max = tbl[j];
+								maxi = j;
+							}
+						}
+					}
+				}
+			//}
+		}
+		// File Writting
+		//System.out.println(max + " " + maxi + " " + Arrays.toString(tbl));
+		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("cowjump.out")));
+		pw.println(max + 1);
+		pw.close();
 	}
 
 }
-class Point{
-	int x,y;
+class Point implements Comparable<Point>{
+	double x,y;
+	int index = -1; 
+	public Point(double x,double y) {
+		this.x = x;
+		this.y = y;
+	}
 	public Point(int x,int y) {
 		this.x = x;
 		this.y = y;
@@ -112,7 +145,12 @@ class Point{
 		this.x = 0;
 		this.y = 0;
 	}
+	public Point setIndex(int i) {
+		this.index = i;
+		return this;
+	}
 	static boolean intersection(Point a, Point b,Point c, Point d) {
+		// OLD CALCULATION CODE
 		Point E = new Point(b.x - a.x, b.y - a.y);
 		Point F = new Point(d.x - c.x, d.y - c.y);
 		Point P = new Point(-E.y, E.x);
@@ -122,15 +160,36 @@ class Point{
 			// Parallel
 			return false;
 		}
-		
 		double h = (Q.x * P.x + Q.y * P.y)/(k);
 		if(0 <= h && h <= 1) {
 			return true;
 		}
 		return false;
 	}
+	static Set<Pair<LineSegement,LineSegement>> notwice = new HashSet<Pair<LineSegement,LineSegement>>();
+	static boolean intersection(LineSegement a,LineSegement b) {
+		if(notwice.contains(new Pair<LineSegement,LineSegement>(a,b))) {
+			return false;
+		}else {
+			notwice.add(new Pair<LineSegement,LineSegement>(a,b));
+		}
+		return intersection(a.a, a.b, b.a, b.b);
+	}
+	public String toString() {
+		return "| ("+this.x + ","+ this.y + ") INDEX "+this.index + " |";
+	}
+	boolean eq(Point q) {
+		if(q.x == this.x && q.y == this.y) {
+			return true;
+		}
+		return false;
+	}
+	@Override
+	public int compareTo(Point arg0) {
+		return Double.compare(this.x, arg0.x);
+		//return 0;
+	}
 }
-
 class LineSegement {
 	Point a,b;
 	public LineSegement(Point a,Point b) {
@@ -141,12 +200,66 @@ class LineSegement {
 		this.a = a;
 		this.b = b;
 		}
+		
 	}
-	public double atX(int x) {
+	public String toString() {
+		return "{"+this.a+","+this.b+"}";
+	}
+	public double atX(double x) {
 		if(this.a.y == this.b.y) { // Straight
 			return this.a.y;
 		}else {
 			return this.a.y * (x/this.a.x);
 		}
 	}
+	
+	public Point atX_(double x) {
+		return new Point(x,this.atX(x));
+	}
+	/*
+	public String toString() {
+		return this.a.toString() + " -- "+this.b.toString();
+	}
+	*/
+}
+class Pair<F, S> {
+    private F first; //first member of pair
+    private S second; //second member of pair
+
+    public Pair(F first, S second) {
+        this.first = first;
+        this.second = second;
+    }
+
+    public void setFirst(F first) {
+        this.first = first;
+    }
+
+    public void setSecond(S second) {
+        this.second = second;
+    }
+
+    public F getFirst() {
+        return first;
+    }
+    @Override 
+    public boolean equals(Object obj){
+    	if(obj instanceof Pair) {
+    		//Pair<LineSegement, LineSegement> p = (Pair<LineSegement, LineSegement>) obj;
+    		//Pair<LineSegement, LineSegement> m = (Pair<LineSegement, LineSegement>) this;
+    		//return (p.first.a.x == m.first.a.x) && (p.first.a.x == m.first.a.y) && (p.first.b.x == m.first.b.x) && (p.first.b.x == m.first.b.y) && (p.second.a.x == m.second.a.x) && (p.second.a.x == m.second.a.y) && (p.second.b.x == m.second.b.x) && (p.second.b.x == m.second.b.y);
+    		Pair q = (Pair) obj;
+    		return q.first.equals(this.first) && q.second.equals(this.second);
+    	}else {
+    		return false;
+    	}
+    }
+    @Override
+    public int hashCode() {
+    	return first.hashCode() * second.hashCode();
+    }
+    public S getSecond() {
+        return second;
+    }
+    
 }
