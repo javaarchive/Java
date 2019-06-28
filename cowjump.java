@@ -62,6 +62,7 @@ public class cowjump {
 			points.add(b);
 			segements.add(new LineSegement(a, b));
 		}
+		f.close();
 		points.sort(null);
 		// Algorthim
 		int size = points.size();
@@ -70,8 +71,8 @@ public class cowjump {
 			//System.out.println(points.get(i));
 		}
 		for(int i =0 ; i < N; i ++) {
-			//System.out.println(Arrays.toString(lookup[i]));
-			//System.out.println(segements.get(i));
+			System.out.println(Arrays.toString(lookup[i]));
+			System.out.println(segements.get(i));
 		}
 		
 		int currentY = -1;
@@ -90,7 +91,7 @@ public class cowjump {
 			}else {
 				*/
 			int state = num(p.index,p,lookup);
-			//System.out.println("Endpoint "+ state + " "+p);
+			System.out.println("Endpoint "+ state + " "+p);
 				if(state == 0) {
 					pz.add(p.index);
 				}else if(state == 1) {
@@ -105,8 +106,8 @@ public class cowjump {
 						//if(j == k){
 						//	continue;
 						//}
-						if(Point.intersection(segements.get(j),segements.get(k))) {
-							//System.out.println("Intersectsion at "+segements.get(j)+" -|||- "+segements.get(k));
+						if(Point.intersection(segements.get(pz.get(j)),segements.get(pz.get(k)))) {
+							System.out.println("Intersectsion at "+segements.get(j)+" -|||- "+segements.get(k));
 							tbl[i] ++;
 							tbl[j] ++;
 							if(tbl[i] > max) {
@@ -123,7 +124,7 @@ public class cowjump {
 			//}
 		}
 		// File Writting
-		//System.out.println(max + " " + maxi + " " + Arrays.toString(tbl));
+		System.out.println(max + " " + maxi + " " + Arrays.toString(tbl));
 		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("cowjump.out")));
 		pw.println(max + 1);
 		pw.close();
@@ -176,7 +177,7 @@ class Point implements Comparable<Point>{
 		return intersection(a.a, a.b, b.a, b.b);
 	}
 	public String toString() {
-		return "| ("+this.x + ","+ this.y + ") INDEX "+this.index + " |";
+		return "("+this.x + ","+ this.y + ","+this.index+")";
 	}
 	boolean eq(Point q) {
 		if(q.x == this.x && q.y == this.y) {
@@ -186,7 +187,14 @@ class Point implements Comparable<Point>{
 	}
 	@Override
 	public int compareTo(Point arg0) {
-		return Double.compare(this.x, arg0.x);
+		if(arg0.x == this.x) {
+			return Double.compare(this.y, this.y);
+		}else if(this.x < arg0.x) {
+			return -1;
+		}else {
+			return 1;
+		}
+		//return Double.compare(this.x, arg0.x);
 		//return 0;
 	}
 }
@@ -197,8 +205,8 @@ class LineSegement {
 			this.a = b;
 			this.b = a;
 		}else {
-		this.a = a;
-		this.b = b;
+			this.a = a;
+			this.b = b;
 		}
 		
 	}
