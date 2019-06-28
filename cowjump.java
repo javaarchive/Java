@@ -94,6 +94,23 @@ public class cowjump {
 			System.out.println("Endpoint "+ state + " "+p);
 				if(state == 0) {
 					pz.add(p.index);
+					int sz = pz.size() - 1;
+					for(int j =0 ;j < sz; j ++ ) {
+							if(Point.intersection(segements.get(p.index),segements.get(pz.get(j)))) {
+								System.out.println("Intersectsion at "+segements.get(p.index)+" -|||- "+segements.get(j));
+								tbl[i] ++;
+								tbl[j] ++;
+								if(tbl[i] > max) {
+									max = tbl[i];
+									maxi = i;
+								}
+								if(tbl[j] > max) {
+									max = tbl[j];
+									maxi = j;
+								}
+							
+						}
+					}
 				}else if(state == 1) {
 					pz.remove(pz.indexOf(p.index));
 					
@@ -101,26 +118,7 @@ public class cowjump {
 					continue;
 				}
 				int sz = pz.size();
-				for(int j =0 ;j < sz ; j ++ ) {
-					for(int k = j + 1; k < sz; k ++) {
-						//if(j == k){
-						//	continue;
-						//}
-						if(Point.intersection(segements.get(pz.get(j)),segements.get(pz.get(k)))) {
-							System.out.println("Intersectsion at "+segements.get(j)+" -|||- "+segements.get(k));
-							tbl[i] ++;
-							tbl[j] ++;
-							if(tbl[i] > max) {
-								max = tbl[i];
-								maxi = i;
-							}
-							if(tbl[j] > max) {
-								max = tbl[j];
-								maxi = j;
-							}
-						}
-					}
-				}
+				
 			//}
 		}
 		// File Writting
