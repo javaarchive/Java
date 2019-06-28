@@ -84,10 +84,11 @@ public class cowjump {
 		//int index;
 		// boolean newY = true;
 		 List<Integer> pz = new ArrayList<Integer>();
-		long[] tbl = new long[N];
+		long[] tbl = new long[2*N];
 		long max = -1;
 		long maxi = -1;
-		for(int i = 0 ; i < N; i ++) {
+		//System.out.println("===="+N +" "+points.size());
+		for(int i = 0 ; i < points.size(); i ++) {
 			Point p = points.get(i);
 			//index = p.index;
 			/*if(p.y != currentY) {
