@@ -80,8 +80,8 @@ public class cowjump {
 			System.out.println(Arrays.toString(lookup[i]));
 			System.out.println(segements.get(i));
 		}
-		int currentY = -1;
-		int index;
+		//int currentY = -1;
+		//int index;
 		// boolean newY = true;
 		 List<Integer> pz = new ArrayList<Integer>();
 		long[] tbl = new long[N];
@@ -205,10 +205,10 @@ class Point implements Comparable<Point>{
 	{ 
 	    // Find the four orientations needed for general and 
 	    // special cases 
-	    long o1 = orientation(p1, q1, p2); 
-	    long o2 = orientation(p1, q1, q2); 
-	    long o3 = orientation(p2, q2, p1); 
-	    long o4 = orientation(p2, q2, q1); 
+	    int o1 = orientation(p1, q1, p2); 
+	    int o2 = orientation(p1, q1, q2); 
+	    int o3 = orientation(p2, q2, p1); 
+	    int o4 = orientation(p2, q2, q1); 
 	  
 	    // General case 
 	    if (o1 != o2 && o3 != o4) 
@@ -231,21 +231,21 @@ class Point implements Comparable<Point>{
 	} 
 	static Set<Pair<LineSegement,LineSegement>> notwice = new HashSet<Pair<LineSegement,LineSegement>>();
 	static boolean intersection(LineSegement a,LineSegement b) {
-		if(notwice.contains(new Pair<LineSegement,LineSegement>(a,b))) {
-			return false;
-		}else {
-			notwice.add(new Pair<LineSegement,LineSegement>(a,b));
-		}
+		//if(notwice.contains(new Pair<LineSegement,LineSegement>(a,b))) {
+			//return false;
+		//}else {
+			//notwice.add(new Pair<LineSegement,LineSegement>(a,b));
+		//}
 		return intersection(a.a, a.b, b.a, b.b);
-	}
-	public String toString() {
-		return "("+this.x + ","+ this.y + ","+this.index+")";
 	}
 	boolean eq(Point q) {
 		if(q.x == this.x && q.y == this.y) {
 			return true;
 		}
 		return false;
+	}
+	public String toString() {
+		return "("+this.x + ","+ this.y + ","+this.index+")";
 	}
 	@Override
 	public int compareTo(Point arg0) {
