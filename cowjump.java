@@ -85,6 +85,7 @@ public class cowjump {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			Point a = new Point(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
 			Point b = new Point(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
 			boolean status;
@@ -112,6 +113,8 @@ public class cowjump {
 					pw.close();
 					System.exit(0);
 =======
+=======
+>>>>>>> parent of c6da410... Long Proofing
 =======
 >>>>>>> parent of c6da410... Long Proofing
 =======
@@ -209,6 +212,9 @@ class Point implements Comparable<Point>{
 	int index = -1; 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of c6da410... Long Proofing
+=======
 >>>>>>> parent of c6da410... Long Proofing
 =======
 >>>>>>> parent of c6da410... Long Proofing
@@ -359,10 +365,13 @@ class Point implements Comparable<Point>{
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public Point atX_(double x) {
 		return new Point(x,this.atX(x));
 	}
 =======
+=======
+>>>>>>> parent of c6da410... Long Proofing
 =======
 >>>>>>> parent of c6da410... Long Proofing
 =======
