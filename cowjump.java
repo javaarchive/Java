@@ -53,16 +53,16 @@ public class cowjump {
 		for(int i =0 ; i < N; i ++) {
 			Point a,b;
 			StringTokenizer st = new StringTokenizer(f.readLine());
-			a = new Point(Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()));
-			b = new Point(Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()));
+			a = new Point(Long.parseLong(st.nextToken()),Long.parseLong(st.nextToken()));
+			b = new Point(Long.parseLong(st.nextToken()),Long.parseLong(st.nextToken()));
 			a = a.setIndex(i);
 			b = b.setIndex(i);
 			if(a.compareTo(b) == 1) {
 				lookup[i][0] = b;
 				lookup[i][1] = a;
 			}else {
-			lookup[i][0] = a;
-			lookup[i][1] = b;
+				lookup[i][0] = a;
+				lookup[i][1] = b;
 			}
 			points.add(a);
 			points.add(b);
@@ -80,14 +80,13 @@ public class cowjump {
 			System.out.println(Arrays.toString(lookup[i]));
 			System.out.println(segements.get(i));
 		}
-		
 		int currentY = -1;
 		int index;
 		// boolean newY = true;
 		 List<Integer> pz = new ArrayList<Integer>();
-		int[] tbl = new int[N];
-		int max = -1;
-		int maxi = -1;
+		long[] tbl = new long[N];
+		long max = -1;
+		long maxi = -1;
 		for(int i = 0 ; i < N; i ++) {
 			Point p = points.get(i);
 			//index = p.index;
@@ -137,9 +136,9 @@ public class cowjump {
 
 }
 class Point implements Comparable<Point>{
-	double x,y;
+	long x,y;
 	int index = -1; 
-	public Point(double x,double y) {
+	public Point(long x,long y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -206,10 +205,10 @@ class Point implements Comparable<Point>{
 	{ 
 	    // Find the four orientations needed for general and 
 	    // special cases 
-	    int o1 = orientation(p1, q1, p2); 
-	    int o2 = orientation(p1, q1, q2); 
-	    int o3 = orientation(p2, q2, p1); 
-	    int o4 = orientation(p2, q2, q1); 
+	    long o1 = orientation(p1, q1, p2); 
+	    long o2 = orientation(p1, q1, q2); 
+	    long o3 = orientation(p2, q2, p1); 
+	    long o4 = orientation(p2, q2, q1); 
 	  
 	    // General case 
 	    if (o1 != o2 && o3 != o4) 
@@ -251,7 +250,7 @@ class Point implements Comparable<Point>{
 	@Override
 	public int compareTo(Point arg0) {
 		if(arg0.x == this.x) {
-			return Double.compare(this.y, this.y);
+			return Long.compare(this.y, this.y);
 		}else if(this.x > arg0.x) {
 			return -1;
 		}else {
@@ -283,10 +282,11 @@ class LineSegement {
 			return this.a.y * (x/this.a.x);
 		}
 	}
-	
+	/*
 	public Point atX_(double x) {
 		return new Point(x,this.atX(x));
 	}
+	*/
 	/*
 	public String toString() {
 		return this.a.toString() + " -- "+this.b.toString();
