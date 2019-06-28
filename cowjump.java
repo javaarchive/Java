@@ -31,8 +31,8 @@ public class cowjump {
 		assert linesCompare(new LineSegement(new Point(0,0), new Point(2,3)),new LineSegement(new Point(0,3),new Point(9,1))) == -1;
 		System.out.println("All Tests OK!");
 	}
-	
-	public static boolean sweepCheck(LineSegement s,Point[][] input) {
+
+ 	public static boolean sweepCheck(LineSegement s,Point[][] input) {
 		for(int i = 0; i < input.length; i ++) {
 			System.out.println("Checking line "+i);
 			if(input[i][0] == null && input[i][1] == null) {
@@ -68,8 +68,8 @@ public class cowjump {
 					System.out.println("No Intersection!");
 				}
 			}
-			
-		}
+
+ 		}
 		return false;
 	}
 	public static void main(String[] args) throws IOException{
@@ -99,8 +99,8 @@ public class cowjump {
 			if(status) {
 				break;
 			}
-			
-			input[i][0] = a;
+
+ 			input[i][0] = a;
 			input[i][1] = b;
 			/*for(int j = 0; j < i; j ++) {
 				if(Point.intersection(input[j][0], input[j][1], input[i][0], input[i][1])) {
@@ -116,10 +116,10 @@ public class cowjump {
 		pw.println(output+1);
 		pw.close();
 		System.exit(0);
-		
-	}
 
-}
+ 	}
+
+ }
 class Point{
 	double x,y;
 	public Point(double x,double y) {
@@ -156,7 +156,7 @@ class Point{
 	}
 }
 
-class LineSegement {
+ class LineSegement {
 	Point a,b;
 	public LineSegement(Point a,Point b) {
 		if(a.x > b.x) {
@@ -180,4 +180,4 @@ class LineSegement {
 	public String toString() {
 		return this.a.toString() + " -- "+this.b.toString();
 	}
-}
+} 
