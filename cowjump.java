@@ -95,8 +95,9 @@ public class cowjump {
 				if(state == 0) {
 					pz.add(p.index);
 					int sz = pz.size() - 1;
+					LineSegement newline = segements.get(p.index);
 					for(int j =0 ;j < sz; j ++ ) {
-							if(Point.intersection(segements.get(p.index),segements.get(pz.get(j)))) {
+							if(Point.intersection(newline,segements.get(pz.get(j)))) {
 								System.out.println("Intersectsion at "+segements.get(p.index)+" -|||- "+segements.get(j));
 								tbl[i] ++;
 								tbl[j] ++;
