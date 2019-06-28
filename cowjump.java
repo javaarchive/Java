@@ -51,7 +51,7 @@ public class cowjump {
 			b = new Point(Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()));
 			a = a.setIndex(i);
 			b = b.setIndex(i);
-			if(a.x > b.x) {
+			if(a.compareTo(b) == 1) {
 				lookup[i][0] = b;
 				lookup[i][1] = a;
 			}else {
@@ -68,7 +68,7 @@ public class cowjump {
 		int size = points.size();
 		
 		for(int i = 0; i < size; i ++) {
-			//System.out.println(points.get(i));
+			System.out.println(points.get(i));
 		}
 		for(int i =0 ; i < N; i ++) {
 			System.out.println(Arrays.toString(lookup[i]));
@@ -189,7 +189,7 @@ class Point implements Comparable<Point>{
 	public int compareTo(Point arg0) {
 		if(arg0.x == this.x) {
 			return Double.compare(this.y, this.y);
-		}else if(this.x < arg0.x) {
+		}else if(this.x > arg0.x) {
 			return -1;
 		}else {
 			return 1;
@@ -211,7 +211,7 @@ class LineSegement {
 		
 	}
 	public String toString() {
-		return "{"+this.a+","+this.b+"}";
+		return "{"+this.a+", "+this.b+"}";
 	}
 	public double atX(double x) {
 		if(this.a.y == this.b.y) { // Straight
