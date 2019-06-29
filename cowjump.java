@@ -89,7 +89,9 @@ public class cowjump {
 		//long maxi = -1;
 		int minindex = Integer.MAX_VALUE;
 		//System.out.println("===="+N +" "+points.size());
-		for(int i = 0 ; i < points.size(); i ++) {
+		int line_a = -1,line_b = -1;
+		boolean found_solution = false;
+		for(int i = 0 ; i < points.size() && !found_solution; i ++) {
 			Point p = points.get(i);
 			//index = p.index;
 			/*if(p.y != currentY) {
@@ -110,19 +112,10 @@ public class cowjump {
 							//	continue;
 							//}
 							if(Point.intersection(segements.get(pz.get(j)),segements.get(p.index))) {
-								//System.out.println("Intersectsion at "+segements.get(j)+" -|||- "+segements.get(k));
-								tbl[pz.get(j)] ++;
-								tbl[p.index] ++;
-								if(p.index < minindex) {
-									//max = tbl[p.index];
-									//maxi = p.index;
-									minindex = p.index;
-								}
-								if(pz.get(j) > minindex) {
-									//max = tbl[pz.get(j)];
-									//maxi = pz.get(j);
-									minindex = pz.get(j);
-								}
+								found_solution = true;
+								line_a = pz.get(j);
+								line_b = p.index;
+								break;
 							}
 					}
 					
@@ -133,6 +126,42 @@ public class cowjump {
 				int sz = pz.size();
 				
 			//}
+		}
+		//LineSegement l_a = segements.get(line_a);
+		//LineSegement l_b = segements.get(line_b);
+		LineSegement intersection_line;
+		/*
+		if(line_a > line_b) {
+			intersection_line = segements.get(line_a);
+		}else {
+			intersection_line = segements.get(line_b);
+		}
+		*/
+		intersection_line = segements.get(line_a);
+		for(int i = 0; i < N; i ++) {
+			if(i == line_a || i == line_b) {
+				continue; // Skip the already found lines
+			}
+			if(Point.intersection(intersection_line, segements.get(i))) {
+				System.out.println("Other connect");
+				minindex = intersection_line.a.index;
+				break;
+			}
+		}
+		
+		intersection_line = segements.get(line_b);
+		for(int i = 0; i < N; i ++) {
+			if(i == line_a || i == line_b) {
+				continue; // Skip the already found lines
+			}
+			if(Point.intersection(intersection_line, segements.get(i))) {
+				System.out.println("Other connect");
+				minindex = intersection_line.a.index;
+				break;
+			}
+		}
+		if(minindex == Integer.MAX_VALUE) {
+			minindex = Math.min(line_a, line_b);
 		}
 		// File Writting
 		//System.out.println(max + " " + maxi + " " + Arrays.toString(tbl));
