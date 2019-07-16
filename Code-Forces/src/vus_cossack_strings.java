@@ -19,7 +19,8 @@ public class vus_cossack_strings {
 		sc.close();
 		int lenA = a.length();
 		int len = b.length();
-		List<String> substrings = new ArrayList<String>();
+		int count = 0;
+		//List<String> substrings = new ArrayList<String>();
 		/*
 		for(int i = 0 ; i < lenA; i ++) {
 			if(a.charAt(i) == 1) {
@@ -29,19 +30,20 @@ public class vus_cossack_strings {
 			}
 		}
 		*/
-		for(int i = 0; i < lenA; i++) {
-			if(i + len > lenA) {
-				break;
-			}
-			substrings.add(a.substring(i, i + len));
-		}
-		int count = 0;
-		//System.out.println(substrings);
-		for(String s:substrings) {
-			if(diff(s,b) % 2 == 0) {
+		int N = lenA - len + 1;
+		for(int i = 0; i < N; i++) {
+			//if(i + len > lenA) {
+			//	break;
+			//}
+			//substrings.add();
+			System.out.println(i+"\n"+(i+len));
+			if(diff(a.substring(i, i + len),b) % 2 == 0) {
 				count++;
 			}
 		}
+		
+		//System.out.println(substrings);
+		
 		System.out.println(count);
 	}
 
