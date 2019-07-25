@@ -24,19 +24,22 @@ public class perimeter {
 			int x1 = p.x;
 			int y1 = p.y;
 			try {
-			if(grid[x1][y1]) {
-				//System.out.println("FILL ("+x1+","+y1+")");
-				if(x1 < N ) {
-				q.add(new Position(x1 + 1,y1));
+			
+				System.out.println("FILL ("+x1+","+y1+")");
+				if(grid[x1][y1]) {
+					if(x1 < N && grid[x1 + 1][y1]) {
+						q.add(new Position(x1 + 1,y1));
+					}
+					if(1 < x1 && grid[x1 - 1][y1]) {
+						q.add(new Position(x1 - 1,y1));
+					}
+					if(y1 < N && grid[x1][y1 + 1]) {
+						q.add(new Position(x1,y1 + 1));
+					}
+					if(1 < y1 && grid[x1][y1 - 1]) {
+						q.add(new Position(x1,y1 - 1));
+					}
 				}
-				if(0 < x1) {
-				q.add(new Position(x1 - 1,y1));
-				}
-				q.add(new Position(x1,y1 + 1));
-				q.add(new Position(x1,y1 - 1));
-			}else {
-				continue;
-			}
 			}catch(Exception ex) {
 				continue;
 			}
@@ -69,7 +72,7 @@ public class perimeter {
 				if(grid[i][j] == true) {
 					numStructs ++;
 					Structure st = flood(i, j, numStructs);
-					st.toggleAll();
+					//st.toggleAll();
 					//st.perimeterList.removeAll(st.posList);
 					
 					st.perimeterList.removeAll(st.posList);
