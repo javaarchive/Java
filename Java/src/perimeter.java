@@ -4,6 +4,7 @@ import java.util.*;
 public class perimeter {
 	public static int N;
 	public static boolean[][] grid;
+	public static boolean[][] visit;
 	public static boolean within(int x,int y,boolean[][] grid) {
 		return true;
 		/*
@@ -16,6 +17,7 @@ public class perimeter {
 		*/
 	}
 	public static Structure flood(int x,int y, int i) {
+		
 		Structure st = new Structure(i);
 		Queue<Position> q = new LinkedList<Position>();
 		q.add(new Position(x,y));
@@ -26,7 +28,7 @@ public class perimeter {
 			try {
 			
 				//System.out.println("FILL ("+x1+","+y1+")");
-				if(grid[x1][y1]) {
+				if(!visit[x1][y1]) {
 					if(x1 < N && grid[x1 + 1][y1]) {
 						q.add(new Position(x1 + 1,y1));
 					}
@@ -46,7 +48,7 @@ public class perimeter {
 				continue;
 			}
 			st.addStruct(p);
-			grid[p.x][p.y] = false; // TODO remove to prevent intefering with addStruct
+			visit[p.x][p.y] = true; 
 			
 		}
 		return st;
@@ -58,6 +60,7 @@ public class perimeter {
 		int size = N+2;
 		int iter_size = N+1;
 		grid = new boolean[size][size];
+		visit = new boolean[size][size];
 		for(int i = 1; i < iter_size; i ++) {
 			String str = f.readLine();
 			for(int j = 1; j < iter_size; j ++) {
@@ -88,8 +91,8 @@ public class perimeter {
 			//struct.toggleAll();
 			//struct.perimeterList.removeAll(struct.posList);
 			int area = struct.posList.size();
-			System.out.println("1:"+struct.posList);
-			System.out.println("2:"+struct.perimeterList);
+			//System.out.println("1:"+struct.posList);
+			//System.out.println("2:"+struct.perimeterList);
 			if(area > largestArea) {
 				largestArea = area;
 				perimOfLarge = struct.perimeterList.size();
