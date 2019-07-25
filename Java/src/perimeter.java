@@ -25,7 +25,7 @@ public class perimeter {
 			int y1 = p.y;
 			try {
 			
-				System.out.println("FILL ("+x1+","+y1+")");
+				//System.out.println("FILL ("+x1+","+y1+")");
 				if(grid[x1][y1]) {
 					if(x1 < N && grid[x1 + 1][y1]) {
 						q.add(new Position(x1 + 1,y1));
@@ -39,12 +39,14 @@ public class perimeter {
 					if(1 < y1 && grid[x1][y1 - 1]) {
 						q.add(new Position(x1,y1 - 1));
 					}
+				}else {
+					continue;
 				}
 			}catch(Exception ex) {
 				continue;
 			}
 			st.addStruct(p);
-			grid[p.x][p.y] = false;
+			grid[p.x][p.y] = false; // TODO remove to prevent intefering with addStruct
 			
 		}
 		return st;
@@ -75,7 +77,7 @@ public class perimeter {
 					//st.toggleAll();
 					//st.perimeterList.removeAll(st.posList);
 					
-					st.perimeterList.removeAll(st.posList);
+					//st.perimeterList.removeAll(st.posList);
 					structs.add(st);
 				}
 			}
@@ -86,8 +88,8 @@ public class perimeter {
 			//struct.toggleAll();
 			//struct.perimeterList.removeAll(struct.posList);
 			int area = struct.posList.size();
-			//System.out.println("1:"+struct.posList);
-			//System.out.println("2:"+struct.perimeterList);
+			System.out.println("1:"+struct.posList);
+			System.out.println("2:"+struct.perimeterList);
 			if(area > largestArea) {
 				largestArea = area;
 				perimOfLarge = struct.perimeterList.size();
