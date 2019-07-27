@@ -11,7 +11,7 @@ public class dining {
             } 
         return min_index; 
     } 
-    static final int OFFSET  = -1; // Offset by 1 for adjancey matirix because index begins at 0
+    static final int OFFSET  = -1; // 0 /*Remove offset*/ by 1 for adjancey matirix because index begins at 0
     public static int[] root;
     public static int status = -1;
     public static int[] arr;
@@ -19,6 +19,7 @@ public class dining {
     //public static List<IPair> pastures = new ArrayList<IPair>();
     public static List<Integer> pastures = new ArrayList<Integer>();
     public static int[] dijkstra(int[][] graph1, int startVertex) {
+    	//Arrays.fill(root, 0);
     	status = 0;
         int N = graph1.length;
         int[] dists = new int[N];
@@ -53,8 +54,8 @@ public class dining {
                 //if(pastures.contains(new IPair(nearestVertex,vertexIndex))) {
                 
                 //if(pastures.contains(nearestVertex) ) {
-                	System.out.println("Info: "+nearestVertex+" "+vertexIndex);
-                	System.out.println("Set "+(nearestVertex - 1) + " and "+(vertexIndex - 1));
+                	//System.out.println("Info: "+nearestVertex+" "+vertexIndex);
+                	//System.out.println("Set "+(nearestVertex - 1) + " and "+(vertexIndex - 1));
                 	//arr[nearestVertex] = 1;
                 	//arr[vertexIndex] = 1;
                 	/*
@@ -85,7 +86,7 @@ public class dining {
 		int N = Integer.parseInt(st.nextToken());
 		int M = Integer.parseInt(st.nextToken());
 		int K = Integer.parseInt(st.nextToken());
-		int[][] matrix = new int[N][N];
+		int[][] matrix = new int[N+1][N+1];
 		arr = new int[N];
 		pasture = new int[N];
 		for(int i = 0; i < N; i++){
@@ -94,44 +95,44 @@ public class dining {
 		for(int i = 0; i < M; i ++) {
 			st = new StringTokenizer(f.readLine());
 			int x = Integer.parseInt(st.nextToken()),y = Integer.parseInt(st.nextToken()),z = Integer.parseInt(st.nextToken());
-			matrix[x + OFFSET][y + OFFSET] = z;
-			matrix[y + OFFSET][x + OFFSET] = z;
+			matrix[x + 0 /*Remove offset*/][y + 0 /*Remove offset*/] = z;
+			matrix[y + 0 /*Remove offset*/][x + 0 /*Remove offset*/] = z;
 		}
 		//System.out.println(Arrays.deepToString(matrix).replaceAll("],*", "],\n"));
 		// Dijkstra Modification begins here
-		int[] out = dijkstra(matrix, N-2);
+		int[] out = dijkstra(matrix, N-1);
 		for(int i = 0; i < K; i++) {
 			st = new StringTokenizer(f.readLine());
 			int x = Integer.parseInt(st.nextToken());
 			int y = Integer.parseInt(st.nextToken());
-			pasture[x-1] = y;
-			x = x + OFFSET;
+			//pasture[x-1] = y;
+			x = x + 0 /*Remove offset*/;
 			for(int j = 0; j < N; j++) {
 				if(matrix[j][x] != 0) {
 					//System.out.println("Override 1   "+j+" "+x+" "+y);
-				matrix[j][x] = matrix[j][x] - y;
+				matrix[j][x] = out[x] - y;
 				}
 				if(matrix[x][j] != 0) {
 					//System.out.println("Override 2   "+x+" "+j+" "+y);
-				matrix[x][j] = matrix[x][j] - y;
+				matrix[x][j] = out[x] - y;
 				}
 				
 			}
-			pastures.add(x);
+			//pastures.add(x);
 			//pastures.add(new IPair(x,y));
 			
 		}
 		// End modification
 		System.out.println("Modifacation Complete");
-		System.out.println(Arrays.deepToString(matrix).replaceAll("],*", "],\n"));
-		int[] out2 = dijkstra(matrix, N-1);
+		//System.out.println(Arrays.deepToString(matrix).replaceAll("],*", "],\n"));
+		int[] out2 = dijkstra(matrix, N);
 		
 		//System.out.println(Arrays.toString(root));
 		//System.out.println(Arrays.toString(out));
 		
 		PrintWriter pw = new PrintWriter(new FileWriter("dining.out"));
 		for(int k = 0; k < arr.length -1; k ++) {
-			if(out[k] <= out2[k]) {
+			if(out[k] >= out2[k]) {
 				pw.println("1");
 			}else {
 				pw.println("0");
