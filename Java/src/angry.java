@@ -13,22 +13,25 @@ public class angry {
 		int cowsUsed  = 0;
 		int curCow = 0;
 		int power2 = power*2;
+		int l,range;
 //		/int lastCow = field.get(field.size() - 1);
 		while(curCow < N) {
 			cowsUsed++;
 			int pos = field.get(curCow);
-			//curCow++;
+			l = curCow + 1;
 			
+			range =0;
 			//System.out.println("Checking "+curCow + " In range "+curCow + " " + (curCow + 2 * power));
-			for(int i = pos; i < N; i ++) {
+			for(int i = l; i < N; i ++) {
 				
-				if(field.get(i) < (pos + power2)) {
+				if(field.get(i) <= pos + power2) {
 					//System.out.println(field.get(i)+" In range "+i);
-					curCow++;
+					range++;
 				}
 			}
-			curCow++;
-			curCow++;
+			//curCow++;
+			curCow = curCow + range + 1;
+			//			curCow ++;
 			
 		}
 		return cowsUsed;
@@ -52,13 +55,13 @@ public class angry {
 			int m = (l + r) / 2;
 			int t = launchSim(m);
 			if (t < K) {
-				r = m - 1;
+				r = m;
 			}else if(K == t) {
-				//System.out.println("Got it");
-				r = m - 1;
+				//				System.out.println("Got it");
+				r = m;
 				//break;
 			}else {
-			            l = m+1;
+			            l = m;
 			        }    
 			    }    
 			    
