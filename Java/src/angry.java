@@ -15,21 +15,25 @@ public class angry {
 		int power2 = power*2;
 //		/int lastCow = field.get(field.size() - 1);
 		while(curCow < N) {
+			cowsUsed++;
 			int pos = field.get(curCow);
-			curCow++;
+			//curCow++;
+			
 			//System.out.println("Checking "+curCow + " In range "+curCow + " " + (curCow + 2 * power));
 			for(int i = pos; i < N; i ++) {
 				
-				if(field.get(i) < pos + power2) {
+				if(field.get(i) < (pos + power2)) {
 					//System.out.println(field.get(i)+" In range "+i);
 					curCow++;
 				}
 			}
 			curCow++;
-			cowsUsed++;
+			curCow++;
+			
 		}
 		return cowsUsed;
-	}
+	} 
+	
 	public static void main(String[] args) throws IOException{
 		BufferedReader f = new BufferedReader(new FileReader("angry.in"));
 		StringTokenizer st = new StringTokenizer(f.readLine());
@@ -48,19 +52,19 @@ public class angry {
 			int m = (l + r) / 2;
 			int t = launchSim(m);
 			if (t < K) {
-				r = m;
+				r = m - 1;
 			}else if(K == t) {
 				//System.out.println("Got it");
-				r = m;
+				r = m - 1;
 				//break;
 			}else {
-			            l = m;
+			            l = m+1;
 			        }    
 			    }    
 			    
 		//System.out.println(field);
 		//System.out.println(costs);
-		//System.out.println(r +" "+l+" "+answer);
+		System.out.println(r +" "+l+" "+answer);
 		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("angry.out")));
 		pw.println(r);
 		pw.close();
