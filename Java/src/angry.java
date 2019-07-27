@@ -9,17 +9,23 @@ public class angry {
 	public static int N;
 	
 	public static int launchSim(int power){
+		//System.out.println("Power: "+power);
 		int cowsUsed  = 0;
 		int curCow = 0;
+		int power2 = power*2;
 //		/int lastCow = field.get(field.size() - 1);
 		while(curCow < N) {
 			int pos = field.get(curCow);
 			curCow++;
+			//System.out.println("Checking "+curCow + " In range "+curCow + " " + (curCow + 2 * power));
 			for(int i = pos; i < N; i ++) {
-				if(field.get(i) < pos + 2 * power) {
+				
+				if(field.get(i) < pos + power2) {
+					//System.out.println(field.get(i)+" In range "+i);
 					curCow++;
 				}
 			}
+			curCow++;
 			cowsUsed++;
 		}
 		return cowsUsed;
@@ -37,25 +43,28 @@ public class angry {
 		field.sort(null);
 		int answer = -1;
 		int l = 0;
-		int r = N;
+		int r = 1000000000;
 		while (r - l > 1) {
 			int m = (l + r) / 2;
-			if (launchSim(m) > K) {
+			int t = launchSim(m);
+			if (t < K) {
 				r = m;
-			} else {
+			}else if(K == t) {
+				//System.out.println("Got it");
+				r = m;
+				//break;
+			}else {
 			            l = m;
 			        }    
 			    }    
 			    
-		System.out.println(field);
+		//System.out.println(field);
 		//System.out.println(costs);
-		System.out.println(l +" "+r);
+		//System.out.println(r +" "+l+" "+answer);
 		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("angry.out")));
-		pw.println(answer);
+		pw.println(r);
 		pw.close();
-		for(int i = 0 ; i < N; i ++) {
-			System.out.println(i+": "+launchSim(N));
-		}
+		
 		//System.out.println("");
 	}
 
