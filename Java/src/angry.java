@@ -7,17 +7,20 @@ import java.util.*;
 public class angry {
 	static List<Integer> field = new ArrayList<Integer>();
 	public static int N;
+	
 	public static int launchSim(int power){
 		int cowsUsed  = 0;
 		int curCow = 0;
+//		/int lastCow = field.get(field.size() - 1);
 		while(curCow < N) {
 			int pos = field.get(curCow);
 			curCow++;
 			for(int i = pos; i < N; i ++) {
-				if(pos ) {
+				if(field.get(i) < pos + 2 * power) {
 					curCow++;
 				}
 			}
+			cowsUsed++;
 		}
 		return cowsUsed;
 	}
@@ -37,7 +40,7 @@ public class angry {
 		int r = N;
 		while (r - l > 1) {
 			int m = (l + r) / 2;
-			if (launchSim(m) < K) {
+			if (launchSim(m) > K) {
 				r = m;
 			} else {
 			            l = m;
@@ -46,10 +49,13 @@ public class angry {
 			    
 		System.out.println(field);
 		//System.out.println(costs);
-		
+		System.out.println(l +" "+r);
 		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("angry.out")));
 		pw.println(answer);
 		pw.close();
+		for(int i = 0 ; i < N; i ++) {
+			System.out.println(i+": "+launchSim(N));
+		}
 		//System.out.println("");
 	}
 
