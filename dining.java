@@ -27,7 +27,7 @@ public class dining {
 		Map<Pair,Integer> costWithHaybales = new HashMap<>(cost); 
 		System.out.println("Cost without haybales: "+cost);
 		System.out.println("Graph as an edgelist:  "+graph);
-		//int[] taste = new int[N];
+		int[] taste = new int[N];
 		Pair key;
 		//cost.get(new Pair(0,1));
 		for(int i = 0; i < K; i ++) {
@@ -42,18 +42,17 @@ public class dining {
 				costWithHaybales.put(key, 
 						costWithHaybales.get(key) - value);
 			}
-			//taste[index] = value;
+			taste[index] = value;
 		}
 		System.out.println("Cost with haybales:    "+costWithHaybales);
 		f.close();
 		int[] empty = new int[M];
 		Arrays.fill(empty, Integer.MAX_VALUE);
 		int[] distTo = new int[M];
-		for(int i = 0; i < numOfCows; i ++) {
-			distTo = Arrays.copyOf(empty, M);
-		}
+		distTo= Arrays.copyOf(empty, M);
+		
+		// begin dijkstra from barn
 	}
-
 }
 
 // Order does not matter pair
