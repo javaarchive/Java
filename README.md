@@ -6,4 +6,4 @@ Find release dates at https://javaarchive.github.io/Java/. Moved to https://gith
 # Important 2019 update, goes into effect 12/14/2018
 The usacotools java library will be offically moved to it's own repositroy. Link is https://github.com/javaarchive/java-tools/tree/master
 # Maintaining
-Sorry everyone! I only upload my usaco files for now
+I only upload my usaco files for now...check out JavaProjects for other stuff
