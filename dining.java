@@ -18,15 +18,18 @@ public class dining {
 		int u;
 		while(!visited.isEmpty()) {
 			//int u = nodeQueue.remove(); // Get next node
-			u = visited.poll();
+			u = visited.remove();
 			List<Integer> adj = graph.get(u);
 			for(int node:adj) {
-				if(dist[node] == Integer.MAX_VALUE) { // If this node has not been visited yet
+				//if(dist[node] == Integer.MAX_VALUE) 
+				{ // If this node has not been visited yet
 					int edgeDist = cost.get(new Pair(u,node));
 					int totalDist = dist[u] + edgeDist;
 					if (totalDist < dist[node]) 
+					{
 	                    dist[node] = totalDist; 
 						visited.add(node);
+					}
 					//nodeQueue.add(node);
 				}
 			}
@@ -102,7 +105,7 @@ public class dining {
 		pw.close();
 	}
 }
-// Order does not matter pair
+// Order does matter pair
 class Pair{
 	int x,y;
 	public Pair(int x,int y) {
@@ -117,7 +120,7 @@ class Pair{
 	public boolean equals(Object obj) {
 		if(obj instanceof Pair) {
 			Pair p = (Pair) obj;
-			if((p.x == this.x && p.y == this.y) || (p.x == this.y && this.x == p.y)) {
+			if((p.x == this.x && p.y == this.y)) {
 				return true;
 			}
 		}
@@ -125,6 +128,6 @@ class Pair{
 	}
 	@Override
 	public int hashCode(){
-		return Integer.hashCode(this.x) * Integer.hashCode(this.y);
+		return Integer.hashCode(this.x) * (Integer.hashCode(this.y)+1);
 	}
 }
