@@ -180,16 +180,16 @@ class Pair{
 			if((p.x == this.x && p.y == this.y) || (p.x == this.y && this.x == p.y)) {
 				return true;
 			}
-		}else {
-			return false;
 		}
 		return false;
 	}
 	@Override
 	public int hashCode(){
-		return (Integer.hashCode(this.x) + 3) * (Integer.hashCode(this.y) + 3);
+		return Integer.hashCode(this.x) * Integer.hashCode(this.y);
 	}
 }
+// No longer needed
+/*
 class Edge{
 	int x;
 	int y;
@@ -218,4 +218,4 @@ class Edge{
 			return false;
 		}
 	}
-}
+}*/
