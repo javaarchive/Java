@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.*;
 public class dining {
+	public static int[] distTo;
+	public static int[] distOrig;
 	public static final int NO_PARENT = -1; // Constant for no parent 
 	public static void main(String[] args) throws IOException {
 		BufferedReader f = new BufferedReader(new FileReader("dining.in"));
@@ -46,15 +48,66 @@ public class dining {
 		}
 		System.out.println("Cost with haybales:    "+costWithHaybales);
 		f.close();
-		int[] empty = new int[M];
+		int[] empty = new int[N];
 		Arrays.fill(empty, Integer.MAX_VALUE);
-		int[] distTo = new int[M];
-		distTo= Arrays.copyOf(empty, M);
+		//distTo = new int[M];
+		distTo= Arrays.copyOf(empty, N);
+		distOrig= Arrays.copyOf(empty, N);
+		Set<Integer> visited = new HashSet<>();
+		PriorityQueue<Integer> nextNodes = new PriorityQueue<>(new Comparator<Integer>() {
+			@Override
+			public int compare(Integer arg0, Integer arg1) {
+				return Integer.compare(dining.distTo[arg1], dining.distTo[arg0]);
+				//return 0;
+			}
+		});		
+		nextNodes.add(N-1);
+		// begin dijkstra from barn with haybales
+		while(visited.size() < N) {
+			System.out.println(visited.size());
+			int u = nextNodes.remove(); // Get next node
+			System.out.println(u);
+			visited.add(u);
+			List<Integer> adj = graph.get(u);
+			for(int node:adj) {
+				if(!visited.contains(node)) {
+					int edgeDist = costWithHaybales.get(new Pair(u,node));
+					int totalDist = distTo[u] + edgeDist;
+					if (totalDist < distTo[node]) 
+	                    distTo[node] = totalDist; 
+					nextNodes.add(node);
+				}
+			}
+		}
+		PriorityQueue<Integer> nextNodesOrig = new PriorityQueue<>(new Comparator<Integer>() {
+			@Override
+			public int compare(Integer arg0, Integer arg1) {
+				return Integer.compare(dining.distOrig[arg1], dining.distOrig[arg0]);
+				//return 0;
+			}
+		});	
+		visited.clear();
+		nextNodesOrig.add(N-1);
+		// begin dijkstra from barn without haybales
+				while(visited.size() < N) {
+					int u = nextNodesOrig.remove(); // Get next node
+					visited.add(u);
+					List<Integer> adj = graph.get(u);
+					for(int node:adj) {
+						if(!visited.contains(node)) {
+							int edgeDist = cost.get(new Pair(u,node));
+							int totalDist = distOrig[u] + edgeDist;
+							if (totalDist < distOrig[node]) 
+			                    distOrig[node] = totalDist; 
+							nextNodesOrig.add(node);
+						}
+					}
+				}
+		System.out.println("Output          :" + Arrays.toString(distOrig));
+		System.out.println("Output(haybales):" + Arrays.toString(distTo));
 		
-		// begin dijkstra from barn
 	}
 }
-
 // Order does not matter pair
 class Pair{
 	int x,y;
