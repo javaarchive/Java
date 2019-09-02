@@ -1,8 +1,7 @@
 import java.io.*;
 import java.util.*;
 public class dining {
-	
-	public static int[] dijkstra(Map<Pair, Integer> cost, List<List<Integer>> graph, final int N) {
+	public static int[] dijkstra(Map<Pair, Integer> cost, Map<Integer,List<Integer>> graph, final int N, int source) {
 		int[] dist = new int[N];
 		Set<Integer> visited = new HashSet<>(); 
 		PriorityQueue<Integer> nodeQueue = new PriorityQueue<>(new Comparator<Integer>() {
@@ -32,56 +31,69 @@ public class dining {
 		return dist;
 	}
 	public static void main(String[] args) throws IOException {
-		BufferedReader f = new BufferedReader(new FileReader("2.in"));
+		BufferedReader f = new BufferedReader(new FileReader("3.in"));
 		StringTokenizer st = new StringTokenizer(f.readLine());
 		int N,M,K;
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
 		K = Integer.parseInt(st.nextToken());
 		final int numOfCows =  N - 1;
-		List<List<Integer>> graph = new ArrayList<>(N);
-		for(int i = 0; i < N; i ++) {
-			graph.add(new ArrayList<>());
-		}
+		Map<Integer,List<Integer>> graph = new HashMap<>(M+1);
+		//for(int i = 0; i < N+1; i ++) {
+		//	graph.add(new ArrayList<>());
+		//}
 		Map<Pair,Integer> cost = new HashMap<>(); 
 		for(int i =0 ; i < M; i ++) {
 			st = new StringTokenizer(f.readLine());
 			int start = Integer.parseInt(st.nextToken());
 			int end = Integer.parseInt(st.nextToken());
 			int edgeCost = Integer.parseInt(st.nextToken());
+			if(!graph.containsKey(start-1)) {
+				graph.put(start-1, new ArrayList<>());
+			}
+			if(!graph.containsKey(end-1)) {
+				graph.put(end-1, new ArrayList<>());
+			}
 			graph.get(start-1).add(end-1);
 			graph.get(end-1).add(start-1);
 			cost.put(new Pair(start-1,end-1), edgeCost);
 		}
+		//System.out.println("Cost              :    "+cost);
 		Map<Pair,Integer> costWithHaybales = new HashMap<>(cost); 
-		System.out.println("Graph as an edgelist:  "+graph);
-		int[] taste = new int[N];
+		//System.out.println("Graph as an edgelist:  "+graph);
+		int[] taste = new int[K];
 		List<Integer> bales = new ArrayList<>();
 		for(int i = 0; i < K; i ++) {
 			st = new StringTokenizer(f.readLine());
 			int index = Integer.parseInt(st.nextToken()) - 1;
 			bales.add(index);
 			int value = Integer.parseInt(st.nextToken());
-			taste[index] = value;
+			taste[i] = value;
 		}
 		f.close();
-		int[] empty = new int[N];
-		Arrays.fill(empty, Integer.MAX_VALUE);
-		empty[N-1] = 0;
+		//int[] empty = new int[N];
+		//Arrays.fill(empty, Integer.MAX_VALUE);
+		//empty[N-1] = 0;
 		int[] distOrig,distTo;
-		distOrig = dijkstra(cost, graph, N);
+		distOrig = dijkstra(cost, graph, N, N - 1);
+		//for(int bale: graph.get(N-1)) {
+		//	graph.get(bale).remove((Object) (N-1));
+		//}
+		//graph.get(N-1).clear();
 		for(int i = 0 ; i < K;  i++) {
 			int target = bales.get(i);
-			graph.get(target).add(N-1);
-			graph.get(N-1).add(target);
-			costWithHaybales.put(new Pair(target,N-1), distOrig[target] - taste[i]);
+			graph.get(target).add(N);
+			graph.get(N).add(target);
+			//System.out.println("Dist: "+distOrig[target]+" Taste: "+taste[i]);
+			//System.out.println(target+" -- "+(N-1) + " connected with weight "+(distOrig[target] - taste[i]));
+			costWithHaybales.put(new Pair(target,N), distOrig[target] - taste[i]);
 		}
-		System.out.println("Modified New Graph  :  "+graph);
-		System.out.println("Cost              :    "+cost);
-		System.out.println("Cost with haybales:    "+costWithHaybales);
-		distTo = dijkstra(costWithHaybales, graph, N);
-		System.out.println("Output          :" + Arrays.toString(distOrig));
-		System.out.println("Output(haybales):" + Arrays.toString(distTo));
+		//System.out.println("Modified New Graph  :  "+graph);
+		//System.out.println("Cost              :    "+cost);
+		//System.out.println("Cost with haybales:    "+costWithHaybales);
+		distTo = dijkstra(costWithHaybales, graph, N+1, N);
+		//System.out.println("Output          :" + Arrays.toString(distOrig));
+		//System.out.println("Output(haybales):" + Arrays.toString(distTo));
 		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("dining.out")));
 		for(int i  =0 ; i < numOfCows; i ++) {
 			if(distTo[i] <= distOrig[i]) {
