@@ -3,15 +3,14 @@ import java.util.*;
 public class dining {
 	public static int[] dijkstra(Map<Pair, Integer> cost, List<List<Integer>> graph, final int N, int source) {
 		int[] dist = new int[N];
-		Queue<Integer> visited = new LinkedList<>(); 
-		/*PriorityQueue<Integer> nodeQueue = new PriorityQueue<>(N,new Comparator<Integer>() {
+		PriorityQueue<Integer> visited = new PriorityQueue<>(N,new Comparator<Integer>() {
 			@Override
 			public int compare(Integer arg0, Integer arg1) {
 				return Integer.compare(dist[arg0], dist[arg1]);
 				//return 0;
 			}
 		});	
-		*/	
+		
 		Arrays.fill(dist, Integer.MAX_VALUE);
 		dist[N-1] = 0; // Starting value
 		//nodeQueue.add(N-1);
@@ -35,7 +34,7 @@ public class dining {
 		return dist;
 	}
 	public static void main(String[] args) throws IOException {
-		BufferedReader f = new BufferedReader(new FileReader("3.in"));
+		BufferedReader f = new BufferedReader(new FileReader("1.in"));
 		StringTokenizer st = new StringTokenizer(f.readLine());
 		int N,M,K;
 		N = Integer.parseInt(st.nextToken());
