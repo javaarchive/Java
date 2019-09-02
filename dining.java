@@ -57,6 +57,7 @@ public class dining {
 			graph.get(start-1).add(end-1);
 			graph.get(end-1).add(start-1);
 			cost.put(new Pair(start-1,end-1), edgeCost);
+			cost.put(new Pair(end-1,start-1), edgeCost);
 		}
 		//System.out.println("Cost              :    "+cost);
 		Map<Pair,Integer> costWithHaybales = new HashMap<>(cost); 
@@ -87,6 +88,7 @@ public class dining {
 			//System.out.println("Dist: "+distOrig[target]+" Taste: "+taste[i]);
 			//System.out.println(target+" -- "+(N-1) + " connected with weight "+(distOrig[target] - taste[i]));
 			costWithHaybales.put(new Pair(target,N), distOrig[target] - taste[i]);
+			//costWithHaybales.put(new Pair(N,target), distOrig[target] - taste[i]);
 		}
 		//System.out.println("Modified New Graph  :  "+graph);
 		System.out.println("Cost              :    "+cost);
