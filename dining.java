@@ -153,7 +153,7 @@ public class dining {
 		//System.out.println("Output(haybales):" + Arrays.toString(distTo));
 		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("dining.out")));
 		for(int i  =0 ; i < numOfCows; i ++) {
-			if(distTo[i] <= distOrig[i]) {
+			if(distTo[i] >= distOrig[i]) {
 				pw.println(1);
 			}else {
 				pw.println(0);
