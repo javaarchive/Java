@@ -30,7 +30,7 @@ public class dining {
 		//System.out.println("Cost without haybales: "+cost);
 		//System.out.println("Graph as an edgelist:  "+graph);
 		int[] taste = new int[N];
-		Pair key;
+		//Pair key;
 		List<Integer> bales = new ArrayList<>();
 		//Map<Integer, Integer> haybales = new HashMap<>();
 		//cost.get(new Pair(0,1));
@@ -39,15 +39,16 @@ public class dining {
 			int index = Integer.parseInt(st.nextToken()) - 1;
 			bales.add(index);
 			int value = Integer.parseInt(st.nextToken());
-			
+			/*
 			//costWithHaybales.get(new Pair(0,1));
 			for(int node: graph.get(index)) {
-				key = new Pair(index,node);//assert key.equals(new Pair(node,index));
+				Pair key = new Pair(index,node);//assert key.equals(new Pair(node,index));
 				//System.out.println("Map: "+costWithHaybales);
 				//System.out.println(key+ " "+costWithHaybales.get(key));
 				//costWithHaybales.put(key, 
 				//		costWithHaybales.get(key) - value);
 			}
+			*/
 			taste[index] = value;
 		}
 		//System.out.println("Cost with haybales:    "+costWithHaybales);
@@ -62,7 +63,7 @@ public class dining {
 		PriorityQueue<Integer> nextNodes = new PriorityQueue<>(new Comparator<Integer>() {
 			@Override
 			public int compare(Integer arg0, Integer arg1) {
-				return Integer.compare(dining.distTo[arg1], dining.distTo[arg0]);
+				return Integer.compare(dining.distTo[arg0], dining.distTo[arg1]);
 				//return 0;
 			}
 		});		
@@ -89,7 +90,7 @@ public class dining {
 		PriorityQueue<Integer> nextNodesOrig = new PriorityQueue<>(new Comparator<Integer>() {
 			@Override
 			public int compare(Integer arg0, Integer arg1) {
-				return Integer.compare(dining.distOrig[arg1], dining.distOrig[arg0]);
+				return Integer.compare(dining.distOrig[arg0], dining.distOrig[arg1]);
 				//return 0;
 			}
 		});	
