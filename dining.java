@@ -4,19 +4,20 @@ public class dining {
 	public static int[] dijkstra(Map<Pair, Integer> cost, List<List<Integer>> graph, final int N, int source) {
 		int[] dist = new int[N];
 		Set<Integer> visited = new HashSet<>(); 
-		PriorityQueue<Integer> nodeQueue = new PriorityQueue<>(new Comparator<Integer>() {
+		/*PriorityQueue<Integer> nodeQueue = new PriorityQueue<>(N,new Comparator<Integer>() {
 			@Override
 			public int compare(Integer arg0, Integer arg1) {
 				return Integer.compare(dist[arg0], dist[arg1]);
 				//return 0;
-			}
+			}*/
 		});		
 		Arrays.fill(dist, Integer.MAX_VALUE);
 		dist[N-1] = 0; // Starting value
-		nodeQueue.add(N-1);
-		while(visited.size() < N) {
-			int u = nodeQueue.remove(); // Get next node
-			visited.add(u);
+		//nodeQueue.add(N-1);
+		visited.add(N-1);
+		while(!visited.isEmpty()) {
+			//int u = nodeQueue.remove(); // Get next node
+			u = visited.first;
 			List<Integer> adj = graph.get(u);
 			for(int node:adj) {
 				if(!visited.contains(node)) {
@@ -24,7 +25,7 @@ public class dining {
 					int totalDist = dist[u] + edgeDist;
 					if (totalDist < dist[node]) 
 	                    dist[node] = totalDist; 
-					nodeQueue.add(node);
+					//nodeQueue.add(node);
 				}
 			}
 		}
@@ -38,8 +39,8 @@ public class dining {
 		M = Integer.parseInt(st.nextToken());
 		K = Integer.parseInt(st.nextToken());
 		final int numOfCows =  N - 1;
-		List<List<Integer>> graph = new ArrayList<>(N+1);
-		for(int i = 0; i < N+1; i ++) {
+		List<List<Integer>> graph = new ArrayList<>(M+1);
+		for(int i = 0; i < M+1; i ++) {
 			graph.add(new ArrayList<>());
 		}
 		Map<Pair,Integer> cost = new HashMap<>(); 
