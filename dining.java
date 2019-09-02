@@ -1,11 +1,38 @@
 import java.io.*;
 import java.util.*;
 public class dining {
-	public static int[] distTo;
-	public static int[] distOrig;
-	public static final int NO_PARENT = -1; // Constant for no parent 
+	
+	public static int[] dijkstra(Map<Pair, Integer> cost, List<List<Integer>> graph, final int N) {
+		int[] dist = new int[N];
+		Set<Integer> visited = new HashSet<>(); 
+		PriorityQueue<Integer> nodeQueue = new PriorityQueue<>(new Comparator<Integer>() {
+			@Override
+			public int compare(Integer arg0, Integer arg1) {
+				return Integer.compare(dist[arg0], dist[arg1]);
+				//return 0;
+			}
+		});		
+		Arrays.fill(dist, Integer.MAX_VALUE);
+		dist[N-1] = 0; // Starting value
+		nodeQueue.add(N-1);
+		while(visited.size() < N) {
+			int u = nodeQueue.remove(); // Get next node
+			visited.add(u);
+			List<Integer> adj = graph.get(u);
+			for(int node:adj) {
+				if(!visited.contains(node)) {
+					int edgeDist = cost.get(new Pair(u,node));
+					int totalDist = dist[u] + edgeDist;
+					if (totalDist < dist[node]) 
+	                    dist[node] = totalDist; 
+					nodeQueue.add(node);
+				}
+			}
+		}
+		return dist;
+	}
 	public static void main(String[] args) throws IOException {
-		BufferedReader f = new BufferedReader(new FileReader("dining.in"));
+		BufferedReader f = new BufferedReader(new FileReader("2.in"));
 		StringTokenizer st = new StringTokenizer(f.readLine());
 		int N,M,K;
 		N = Integer.parseInt(st.nextToken());
@@ -28,7 +55,7 @@ public class dining {
 		}
 		Map<Pair,Integer> costWithHaybales = new HashMap<>(cost); 
 		//System.out.println("Cost without haybales: "+cost);
-		//System.out.println("Graph as an edgelist:  "+graph);
+		System.out.println("Graph as an edgelist:  "+graph);
 		int[] taste = new int[N];
 		//Pair key;
 		List<Integer> bales = new ArrayList<>();
@@ -58,15 +85,7 @@ public class dining {
 		empty[N-1] = 0;
 		//distTo = new int[M];
 		//distTo= Arrays.copyOf(empty, N);
-		distOrig= Arrays.copyOf(empty, N);
-		Set<Integer> visited = new HashSet<>();
-		PriorityQueue<Integer> nextNodes = new PriorityQueue<>(new Comparator<Integer>() {
-			@Override
-			public int compare(Integer arg0, Integer arg1) {
-				return Integer.compare(dining.distTo[arg0], dining.distTo[arg1]);
-				//return 0;
-			}
-		});		
+		int[] distOrig,distTo;
 		/*
 		nextNodes.add(N-1);
 		// begin dijkstra from barn with haybales
@@ -87,32 +106,8 @@ public class dining {
 			}
 		}
 		*/
-		PriorityQueue<Integer> nextNodesOrig = new PriorityQueue<>(new Comparator<Integer>() {
-			@Override
-			public int compare(Integer arg0, Integer arg1) {
-				return Integer.compare(dining.distOrig[arg0], dining.distOrig[arg1]);
-				//return 0;
-			}
-		});	
-		//visited.clear();
 		
-		nextNodesOrig.add(N-1);
-		// begin dijkstra from barn without haybales
-				while(visited.size() < N) {
-					int u = nextNodesOrig.remove(); // Get next node
-					visited.add(u);
-					List<Integer> adj = graph.get(u);
-					for(int node:adj) {
-						if(!visited.contains(node)) {
-							int edgeDist = cost.get(new Pair(u,node));
-							int totalDist = distOrig[u] + edgeDist;
-							if (totalDist < distOrig[node]) 
-			                    distOrig[node] = totalDist; 
-							nextNodesOrig.add(node);
-						}
-					}
-				}
-		//System.out.println("Output          :" + Arrays.toString(distOrig));
+		distOrig = dijkstra(cost, graph, N);
 		
 		//for(int bale: graph.get(N-1)) {
 		//	graph.get(bale).remove((Object) (N-1));
@@ -130,30 +125,14 @@ public class dining {
 			graph.get(N-1).add(target);
 			costWithHaybales.put(new Pair(target,N-1), distOrig[target] - taste[i]);
 		}
-		visited.clear();
-		distTo= Arrays.copyOf(empty, N);
-		nextNodes.add(N-1);
-		// begin dijkstra from barn with haybales
-		while(visited.size() < N) {
-			//System.out.println(visited.size());
-			int u = nextNodes.remove(); // Get next node
-			//System.out.println(u);
-			visited.add(u);
-			List<Integer> adj = graph.get(u);
-			for(int node:adj) {
-				if(!visited.contains(node)) {
-					int edgeDist = costWithHaybales.get(new Pair(u,node));
-					int totalDist = distTo[u] + edgeDist;
-					if (totalDist < distTo[node]) 
-	                    distTo[node] = totalDist; 
-					nextNodes.add(node);
-				}
-			}
-		}
-		//System.out.println("Output(haybales):" + Arrays.toString(distTo));
+		System.out.println("Cost              :    "+cost);
+		System.out.println("Cost with haybales:    "+costWithHaybales);
+		distTo = dijkstra(costWithHaybales, graph, N);
+		System.out.println("Output          :" + Arrays.toString(distOrig));
+		System.out.println("Output(haybales):" + Arrays.toString(distTo));
 		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("dining.out")));
 		for(int i  =0 ; i < numOfCows; i ++) {
-			if(distTo[i] >= distOrig[i]) {
+			if(distTo[i] <= distOrig[i]) {
 				pw.println(1);
 			}else {
 				pw.println(0);
