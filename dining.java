@@ -3,28 +3,31 @@ import java.util.*;
 public class dining {
 	public static int[] dijkstra(Map<Pair, Integer> cost, List<List<Integer>> graph, final int N, int source) {
 		int[] dist = new int[N];
-		Set<Integer> visited = new HashSet<>(); 
+		Queue<Integer> visited = new LinkedList<>(); 
 		/*PriorityQueue<Integer> nodeQueue = new PriorityQueue<>(N,new Comparator<Integer>() {
 			@Override
 			public int compare(Integer arg0, Integer arg1) {
 				return Integer.compare(dist[arg0], dist[arg1]);
 				//return 0;
-			}*/
-		});		
+			}
+		});	
+		*/	
 		Arrays.fill(dist, Integer.MAX_VALUE);
 		dist[N-1] = 0; // Starting value
 		//nodeQueue.add(N-1);
-		visited.add(N-1);
+		visited.add(source);
+		int u;
 		while(!visited.isEmpty()) {
 			//int u = nodeQueue.remove(); // Get next node
-			u = visited.first;
+			u = visited.poll();
 			List<Integer> adj = graph.get(u);
 			for(int node:adj) {
-				if(!visited.contains(node)) {
+				if(dist[node] == Integer.MAX_VALUE) { // If this node has not been visited yet
 					int edgeDist = cost.get(new Pair(u,node));
 					int totalDist = dist[u] + edgeDist;
 					if (totalDist < dist[node]) 
 	                    dist[node] = totalDist; 
+						visited.add(node);
 					//nodeQueue.add(node);
 				}
 			}
