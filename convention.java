@@ -2,6 +2,24 @@
 import java.io.*;
 import java.util.*;
 public class convention {
+	public static boolean check(int test,int M, int C, List<Integer> buses) {
+		int busStart=buses.get(0);
+		int busCount = 1;
+		int cowCount = 0;
+		for(int i = 0; i < buses.size(); i ++) {
+			if(busCount > M) {
+				return false;
+			}
+			int time = buses.get(i);
+			if(time - busStart > test || cowCount == C) {
+				busCount ++;
+				busStart = time;
+				cowCount = 0;
+			}
+			cowCount++;
+		}
+		return true;
+	}
 	public static void endProgram(int answer) throws IOException{
 		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("convention.out")));
 		pw.println(answer);
@@ -22,38 +40,19 @@ public class convention {
 		for(int i = 0; i < N; i ++) {
 			arrivTime.add(Integer.parseInt(st.nextToken()));
 		}
-		if(C == 1) {
-			endProgram(N);
-		}
 		arrivTime.sort(null);
-		List<PriorityElem> options = new ArrayList<>();
-		int required = 0;
-		for(int i = 0; i < N-C; i ++) {
-			//System.out.println("Pos: "+(i+C)+" , "+i);
-			//System.out.println("Dif: "+arrivTime.get(i+C)+" , "+arrivTime.get(i));
-			int diff = arrivTime.get(i+C) - arrivTime.get(i);
-			//System.out.println(diff);
-			options.add(new PriorityElem(i,diff));
-			// Pick diffs
-		}
-		//Collections.reverse(arrivTime);
-		//System.out.println(arrivTime);
-		options.sort(null);
-		for(PriorityElem pe: options) {
-			//System.out.println(pe.item + " "+pe.priority);
-		}
-		int answer = 0;
+		//         123456789
+		int max = 1000000000;
+		int min = 0;
 		while(true) {
-			// Pick Optimally?
-			if(required > N - (answer*2)) {
-				break;
+			int mid = (int) Math.floor((min + max)/2);
+			if(check(mid,M,C,arrivTime)) {
+				max = mid;
+			}else {
+				min = mid;
 			}
-			PriorityElem p = options.remove(0);
-			answer += 1;
-			required += C-2;
+			System.out.println(min+" "+mid+" "+max);
 		}
-		System.out.println("");
-		endProgram(answer);
 	}
 
 }
