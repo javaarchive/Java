@@ -27,12 +27,10 @@ public class milkvisits {
 			char pref = st.nextToken().charAt(0);
 			Set<Integer> visited = new HashSet<>();
 			Queue<Traversal> options = new LinkedList<>();
-			List<Integer> base = new ArrayList<>();
-			base.add(a);
-			options.add(new Traversal(base, lookup[a-1] == pref));
+			options.add(new Traversal(a, lookup[a-1] == pref));
 			while(!options.isEmpty()) {
 				Traversal t =options.poll();
-				int lastNode = t.nodes.get(t.nodes.size()-1);
+				int lastNode = t.lastNode;
 				if(lastNode == b) {
 					if(lookup[b-1] == pref || t.good) {
 						answer += "1";
@@ -45,9 +43,7 @@ public class milkvisits {
 					if(visited.contains(node)) {
 						continue;
 					}
-					List<Integer> al = new ArrayList<>(t.nodes);
-					al.add(node);
-					options.add(new Traversal(al, lookup[node-1] == pref || t.good));
+					options.add(new Traversal(node, lookup[node-1] == pref || t.good));
 				}
 				visited.add(lastNode);
 			}
@@ -59,11 +55,11 @@ public class milkvisits {
 
 }
 class Traversal {
-	List<Integer> nodes;
+	int lastNode;
 	boolean good;
-	public Traversal(List<Integer> nodes, boolean gotMilk) {
+	public Traversal(int lastNode, boolean gotMilk) {
 		this.good =gotMilk;
-		this.nodes = nodes;
+		this.lastNode = lastNode;
 	}
 }
 class Path{
