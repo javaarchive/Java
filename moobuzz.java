@@ -1,3 +1,6 @@
+// Extremely Simple MooBuzz solution
+// Generates precalc lookup table
+// Utilizes/"exploits" fact that the moobuzz sequence will repeat!
 import java.io.*;
 import java.util.*;
 public class moobuzz {
