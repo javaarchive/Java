@@ -9,8 +9,8 @@ public class milkvisits {
 		int M = Integer.parseInt(st.nextToken());
 		char[] lookup = f.readLine().toCharArray();
 		Map<Integer, List<Integer>> connections = new HashMap<>();
-		for(int i =0 ; i < N; i ++) {
-			connections.put(i+1, new ArrayList<>());
+		for(int i =1 ; i < (N+1); i ++) {
+			connections.put(i, new ArrayList<>());
 		}
 		for(int i = 0; i < N-1; i ++) {
 			st = new StringTokenizer(f.readLine());
@@ -19,36 +19,50 @@ public class milkvisits {
 			connections.get(x).add(y);
 			connections.get(y).add(x);
 		}
-		String answer = "";
-		for(int i =0 ; i < M; i ++) {
+		int[] seg = new int[N];
+		int segNum = 1;
+		Stack<Traversal> ts = new Stack<>();
+		
+		
+		//int test = 0;
+		//char target = lookup[test];
+		
+		for(int i = 1; i < (N+1); i ++) {
+			segNum++;
+			if(seg[i-1] != 0) {
+				continue;
+			}
+			char target = lookup[i-1];
+			ts.push(new Traversal(i));
+			while(!ts.empty()) {
+				Traversal t = ts.pop();
+				seg[t.lastNode-1] = segNum;
+				for(int node: connections.get(t.lastNode)) {
+					if(lookup[node-1] == target && seg[node-1]==0) {
+						ts.push(new Traversal(node));
+					}
+				}
+			}
+		}
+		//System.out.println("Node numbers      : {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,...}");
+		//System.out.println("Generated Seg Data: "+Arrays.toString(seg));
+		//System.out.println("Lookup database   : "+Arrays.toString(lookup));
+		for(int i = 0; i < M; i ++) {
 			st = new StringTokenizer(f.readLine());
 			int a = Integer.parseInt(st.nextToken());
 			int b = Integer.parseInt(st.nextToken());
-			char pref = st.nextToken().charAt(0);
-			Set<Integer> visited = new HashSet<>();
-			Queue<Traversal> options = new LinkedList<>();
-			options.add(new Traversal(a, lookup[a-1] == pref));
-			while(!options.isEmpty()) {
-				Traversal t =options.poll();
-				int lastNode = t.lastNode;
-				if(lastNode == b) {
-					if(lookup[b-1] == pref || t.good) {
-						answer += "1";
-					}else {
-						answer += "0";
-					}
-					break; // FINALLY
+			char T = st.nextToken().charAt(0);
+			if(seg[a-1] != seg[b-1]) {
+				pw.print("1");
+			}else {
+				if(lookup[a-1] == T && lookup[b-1] == T) {
+					pw.print("1");
+				}else {
+					pw.print("0");
 				}
-				for(int node: connections.get(lastNode)) {
-					if(visited.contains(node)) {
-						continue;
-					}
-					options.add(new Traversal(node, lookup[node-1] == pref || t.good));
-				}
-				visited.add(lastNode);
 			}
 		}
-		pw.println(answer);
+		pw.println();
 		f.close();
 		pw.close();
 	}
@@ -56,9 +70,8 @@ public class milkvisits {
 }
 class Traversal {
 	int lastNode;
-	boolean good;
-	public Traversal(int lastNode, boolean gotMilk) {
-		this.good =gotMilk;
+	
+	public Traversal(int lastNode) {
 		this.lastNode = lastNode;
 	}
 }
